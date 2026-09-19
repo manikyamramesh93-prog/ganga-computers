@@ -1,0 +1,181 @@
+{
+  "specialOffer": "Flash 500 off on Samsung Galaxy A7 Lite now at 4999 only",
+  "items": [
+    {
+      "id": 1,
+      "category": "Tablet",
+      "brand": "Apple",
+      "title": "Apple iPad 6th Gen",
+      "price": 11000,
+      "qty": 5,
+      "condition": "Excellent",
+      "extra": "Apple Pencil (1st Gen) supported",
+      "specs": [
+        "32 GB Storage",
+        "9.7 inch Retina Display",
+        "Apple A10 Fusion",
+        "All Apps Supported"
+      ],
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+    },
+    {
+      "id": 2,
+      "category": "Tablet",
+      "brand": "Apple",
+      "title": "Apple iPad Mini 4 (32 GB)",
+      "price": 8000,
+      "qty": 10,
+      "condition": "Good",
+      "extra": "Compact & lightweight design",
+      "specs": [
+        "32 GB Storage",
+        "7.9 inch Retina Display",
+        "Touch ID",
+        "Slim Metal Body"
+      ],
+      "image": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600"
+    },
+    {
+      "id": 3,
+      "category": "Tablet",
+      "brand": "Samsung",
+      "title": "Samsung Galaxy Tab A7 Lite",
+      "price": 4999,
+      "qty": 15,
+      "condition": "Like New",
+      "extra": "Pouch & glass ₹400/- extra",
+      "specs": [
+        "4GB RAM",
+        "32GB Storage",
+        "4G All SIM Support",
+        "9 inch Screen",
+        "5100 mAh Battery",
+        "Special Offer"
+      ],
+      "image": "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600"
+    },
+    {
+      "id": 4,
+      "category": "Tablet",
+      "brand": "Lenovo",
+      "title": "Lenovo M10 HD TAB",
+      "price": 4999,
+      "qty": 15,
+      "condition": "Excellent",
+      "extra": "Office work, study, classes & gaming",
+      "specs": [
+        "3GB RAM",
+        "32GB Storage",
+        "4G SIM Option",
+        "Snapdragon Processor",
+        "10 inch HD Screen"
+      ],
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+    },
+    {
+      "id": 5,
+      "category": "Tablet",
+      "brand": "Samsung",
+      "title": "Samsung Galaxy TAB A (Model: T295)",
+      "price": 2999,
+      "qty": 10,
+      "condition": "Good",
+      "extra": "🔥 Offer Rate ₹2,999/- 🔥",
+      "specs": [
+        "2GB RAM",
+        "32GB Storage",
+        "4G Calling (All SIM)",
+        "Android 11",
+        "8 inch Screen"
+      ],
+      "image": "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600"
+    },
+    {
+      "id": 6,
+      "category": "Tablet",
+      "brand": "Samsung",
+      "title": "Samsung Galaxy Tab T515",
+      "price": 5999,
+      "qty": 0,
+      "condition": "Excellent",
+      "extra": "💥 4G Calling + Dolby Atmos 💥",
+      "specs": [
+        "2GB RAM",
+        "32GB Storage",
+        "10 inch Screen",
+        "Dolby Atmos Dual Speakers",
+        "6150 mAh Battery"
+      ],
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+    },
+    {
+      "id": 7,
+      "category": "Tablet",
+      "brand": "Lenovo",
+      "title": "Lenovo M10 (2nd Generation)",
+      "price": 7000,
+      "qty": 15,
+      "condition": "Like New",
+      "extra": "Pouch & glass ₹400/- extra",
+      "specs": [
+        "4GB RAM",
+        "64GB Storage",
+        "10.1 inch FHD Screen",
+        "Metal Body Tab",
+        "4G All SIM Support"
+      ],
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+    },
+    {
+      "id": 8,
+      "category": "Tablet",
+      "brand": "Lenovo",
+      "title": "Lenovo 10 inch WiFi Tab",
+      "price": 1999,
+      "qty": 10,
+      "condition": "Good",
+      "extra": "YouTube Lite & Insta Lite working",
+      "specs": [
+        "1GB RAM",
+        "16GB Storage",
+        "WiFi Only",
+        "10 inch Large Screen"
+      ],
+      "image": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600"
+    },
+    {
+      "id": 9,
+      "category": "Tablet",
+      "brand": "Samsung",
+      "title": "Samsung Galaxy J MAX",
+      "price": 2999,
+      "qty": 10,
+      "condition": "Good",
+      "extra": "Pouch extra ₹250/-",
+      "specs": [
+        "1.5GB RAM",
+        "8GB Storage",
+        "4G All SIM Support",
+        "8 inch Screen"
+      ],
+      "image": "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600"
+    },
+    {
+      "id": 10,
+      "category": "Tablet",
+      "brand": "Lenovo",
+      "title": "Lenovo 7-inch Calling Tab",
+      "price": 2999,
+      "qty": 10,
+      "condition": "Good",
+      "extra": "Pouch extra ₹250/- | YouTube, WhatsApp, Insta",
+      "specs": [
+        "2GB RAM",
+        "16GB Storage",
+        "4G All SIM & Calling",
+        "7 inch IPS Display"
+      ],
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+    }
+  ]
+}

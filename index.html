@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Ganga Computers | Certified Pre-Owned Tablets & Laptops</title>
+  
+  <link rel="canonical" href="https://gangacomputers.in" />
+  <meta property="og:title" content="Ganga Computers | Certified Pre-Owned Tablets & Laptops" />
+  <meta property="og:url" content="https://gangacomputers.in" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-card: #162032;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+    
+    .top-strip {
+      background: rgba(17, 24, 39, 0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      width: 100%;
+    }
+
+    .top-strip-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+    }
+
+    .top-brand { color: var(--text); font-weight: 500; }
+    .top-strip-links { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .top-link { color: #38bdf8; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; transition: opacity 0.2s ease; }
+    .top-link:hover { opacity: 0.8; }
+    .top-link svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+    .sep { color: rgba(255, 255, 255, 0.25); user-select: none; }
+
+    @media (max-width: 640px) {
+      .top-strip { padding: 7px 12px; }
+      .top-strip-inner { justify-content: center; flex-direction: column; gap: 4px; text-align: center; }
+      .top-strip-links { justify-content: center; gap: 10px; }
+      .top-link { font-size: 0.74rem; }
+    }
+
+    header { position: sticky; top: 0; z-index: 40; background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 10px 16px; }
+    .navbar { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .brand { font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; flex-direction: column; line-height: 1.1; }
+    
+    .header-btns { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .btn-link { 
+      background: rgba(255, 255, 255, 0.08); 
+      color: #cbd5e1; 
+      border: 1px solid var(--border); 
+      padding: 6px 9px; 
+      border-radius: 8px; 
+      font-size: 0.75rem; 
+      font-weight: 600; 
+      text-decoration: none; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 5px; 
+      transition: background 0.2s ease, transform 0.1s ease; 
+      white-space: nowrap;
+    }
+    .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
+    .btn-link:active { transform: scale(0.97); }
+    .btn-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+    .btn-insta { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff; border: none; }
+
+    .hero { text-align: center; padding: 28px 16px 16px; }
+    .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin-bottom: 8px; line-height: 1.25; }
+    .hero p { color: var(--text-muted); font-size: clamp(0.8rem, 2vw, 0.95rem); }
+
+    .container { max-width: 1280px; margin: 16px auto 40px; padding: 0 16px; width: 100%; flex: 1; }
+    
+    .controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 14px; border-radius: 12px; }
+    @media (min-width: 768px) { 
+      .controls { flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; } 
+    }
+    .search-box { flex: 1; max-width: 400px; min-width: 240px; }
+    .search-box input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 8px; outline: none; font-size: 0.88rem; }
+    .search-box input:focus { border-color: #38bdf8; }
+    
+    .filter-sort-wrapper { display: flex; flex-direction: column; gap: 10px; }
+    @media (min-width: 768px) { .filter-sort-wrapper { align-items: flex-end; } }
+
+    .filters { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .filters button { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 999px; cursor: pointer; font-size: 0.78rem; font-weight: 600; white-space: nowrap; transition: all 0.2s ease; }
+    .filters button.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .sort-controls { display: flex; align-items: center; gap: 8px; }
+    .sort-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+    #productSort {
+      background-color: #1e293b; 
+      color: #f8fafc; 
+      border: 1px solid #334155; 
+      font-size: 0.82rem; 
+      font-weight: 500;
+      padding: 5px 28px 5px 10px; 
+      border-radius: 6px; 
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+    #productSort:focus { border-color: #38bdf8; }
+
+    /* Banner Track */
+    .flash-offer-wrapper {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      background: linear-gradient(90deg, #b91c1c, #ea580c, #b91c1c);
+      border: 1px solid rgba(254, 202, 202, 0.4);
+      border-radius: 10px;
+      padding: 9px 0;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+
+    .flash-offer-wrapper:hover .flash-offer-marquee {
+      animation-play-state: paused;
+    }
+
+    /* 1. Translates right to left */
+    .flash-offer-marquee {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marqueeScroll 16s linear infinite;
+    }
+
+    /* 2. Blinks text on and off continuously */
+    .flash-offer-blink {
+      display: inline-block;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+      animation: textBlink 1.9s steps(2, start) infinite;
+    }
+
+    /* Blinking effect */
+    @keyframes textBlink {
+      0%, 100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 6px #fff);
+      }
+      50% {
+        opacity: 0.40;
+        filter: none;
+      }
+    }
+
+    /* Continuous scroll */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); 
+      gap: 16px; 
+    }
+    .card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s ease; }
+    .card:hover { border-color: rgba(255, 255, 255, 0.2); }
+    .card-img { width: 100%; height: 190px; object-fit: cover; background: #0d1424; }
+    .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; }
+    .card-brand { font-size: 0.7rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin: 4px 0 8px; line-height: 1.3; }
+    .spec-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+    .spec-pills span { background: rgba(255, 255, 255, 0.05); font-size: 0.72rem; color: #cbd5e1; padding: 4px 8px; border-radius: 4px; }
+    
+    .card-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
+    .price-row { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .price { font-size: 1.3rem; font-weight: 800; color: #fff; }
+    
+    .stock-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .in-stock {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .low-stock {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+    .out-stock {
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+    
+    .wa-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+    .wa-btn { 
+      background: #16a34a; 
+      color: white; 
+      text-decoration: none; 
+      min-height: 38px;
+      padding: 6px 8px; 
+      border-radius: 8px; 
+      font-size: 0.78rem; 
+      font-weight: 600; 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 6px;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+      white-space: nowrap;
+    }
+    .wa-btn:hover { opacity: 0.9; }
+    .wa-btn:active { transform: scale(0.98); }
+    .wa-btn.anakapalli { background: #0284c7; }
+    .wa-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px 16px; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+    footer a { color: #38bdf8; text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .top-strip { justify-content: center; text-align: center; flex-direction: column; gap: 6px; }
+      .top-strip-links { justify-content: center; width: 100%; }
+      .navbar { justify-content: center; gap: 10px; }
+      .brand { text-align: center; align-items: center; width: 100%; }
+      .header-btns { justify-content: center; width: 100%; }
+      .header-btns .btn-link { flex: 1 1 auto; justify-content: center; padding: 7px 8px; font-size: 0.72rem; }
+      .card-img { height: 170px; }
+      .flash-offer-text { font-size: 0.8rem; animation-duration: 14s; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-strip">
+    <div class="top-strip-inner">
+      <div class="top-brand">⚡ <strong>gangacomputers.in</strong></div>
+      <div class="top-strip-links">
+        <a href="tel:+919493495539" class="top-link">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <span>Anakapalli: +91 94934 95539</span>
+        </a>
+        <span class="sep">•</span>
+        <a href="tel:+919599053593" class="top-link">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <span>Hyderabad: +91 95990 53593</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="navbar">
+      <a href="https://gangacomputers.in" class="brand">
+        Ganga Computers
+      </a>
+      <div class="header-btns">
+        <a href="https://share.google/grDY31LfqTav9bRjK" target="_blank" class="btn-link" title="Anakapalli Store Map">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          <span class="btn-label">Anakapalli</span>
+        </a>
+        <a href="https://share.google/E8pgVSvp2RaJf3SRH" target="_blank" class="btn-link" title="Hyderabad Store Map">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          <span class="btn-label">Hyderabad</span>
+        </a>
+        <a href="https://instagram.com/gangacomputers4" target="_blank" class="btn-link btn-insta" title="Instagram Profile">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="btn-label">Instagram</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Affordable Pre-Owned Tablets & Laptops</h1>
+    <p>Tested Battery & Hardware • Anakapalli & Hyderabad Branches</p>
+  </section>
+
+  <main class="container">
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Search models, specs..." oninput="render()" />
+      </div>
+
+      <div class="filter-sort-wrapper">
+        <div class="filters">
+          <button class="active" onclick="filterCat('All', this)">All</button>
+          <button onclick="filterCat('Laptop', this)">Laptops</button>
+          <button onclick="filterCat('Tablet', this)">Tablets</button>
+          <button onclick="filterCat('Apple', this)">Apple</button>
+          <button onclick="filterCat('Samsung', this)">Samsung</button>
+          <button onclick="filterCat('Lenovo', this)">Lenovo</button>
+        </div>
+
+        <div class="sort-controls">
+          <span class="sort-label">Sort By:</span>
+          <select id="productSort" onchange="render()">
+            <option value="default">Featured / Default</option>
+            <option value="price-low-high">Price: Low to High</option>
+            <option value="price-high-low">Price: High to Low</option>
+            <option value="model-az">Model: A to Z</option>
+            <option value="model-za">Model: Z to A</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrolling & Blinking Offer Banner -->
+    <div id="flashOfferBanner" class="flash-offer-wrapper">
+      <div class="flash-offer-marquee">
+        <span id="flashOfferText" class="flash-offer-blink"></span>
+      </div>
+    </div>
+
+    <div class="grid" id="productGrid"></div>
+  </main>
+
+  <footer>
+    <p><strong>Ganga Computers</strong> • Anakapalli: +91 94934 95539 | Hyderabad: +91 95990 53593</p>
+    <p style="margin-top:6px;">&copy; <span id="year"></span> <a href="https://gangacomputers.in">gangacomputers.in</a></p>
+    <p style="margin-top:8px; font-size:0.58rem; letter-spacing:0.5px; opacity:0.38; color:#94a3b8; user-select:none;">
+      Designed by Ramesh.
+    </p>
+  </footer>
+
+  <script>
+    const WHATSAPP_HYDERABAD = "919599053593";
+    const WHATSAPP_ANAKAPALLI = "919493495539";
+
+    const WA_SVG = `<svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.13.17 1.77 2.7 4.29 3.78.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/></svg>`;
+
+    let inventory = [];
+    let currentFilter = 'All';
+
+    function loadData() {
+      fetch('stock.json?t=' + Date.now(), {
+        cache: 'no-store',
+        headers: {
+          'pragma': 'no-cache',
+          'cache-control': 'no-cache'
+        }
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.json();
+      })
+      .then(data => {
+        let offerText = "";
+        if (Array.isArray(data)) {
+          inventory = data;
+        } else if (data && typeof data === 'object') {
+          inventory = Array.isArray(data.items) ? data.items : [];
+          offerText = data.specialOffer || "";
+        }
+
+        // Handle the scrolling flash offer marquee above the grid
+        const offerWrapper = document.getElementById('flashOfferBanner');
+        const offerSpan = document.getElementById('flashOfferText');
+        if (offerText && offerText.trim() !== "") {
+          offerSpan.textContent = "⚡ " + offerText + " ⚡";
+          offerWrapper.style.display = "block";
+        } else {
+          offerWrapper.style.display = "none";
+        }
+
+        render();
+      })
+      .catch(err => {
+        console.error("Failed to load stock.json:", err);
+      });
+    }
+
+    function filterCat(cat, btn) {
+      currentFilter = cat;
+      document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+    function render() {
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const sortVal = document.getElementById('productSort')?.value || 'default';
+
+      let items = inventory.filter(item => {
+        let matchCat = true;
+        if (currentFilter === 'Laptop') matchCat = (item.category === 'Laptop' || item.category === 'Computer');
+        else if (currentFilter === 'Tablet') matchCat = (item.category === 'Tablet' || !item.category);
+        else if (currentFilter !== 'All') matchCat = item.brand?.toLowerCase() === currentFilter.toLowerCase();
+
+        const matchSearch = (item.title || '').toLowerCase().includes(q) || 
+                            (item.specs && item.specs.some(s => s.toLowerCase().includes(q)));
+        return matchCat && matchSearch;
+      });
+
+      if (sortVal === 'price-low-high') {
+        items.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+      } else if (sortVal === 'price-high-low') {
+        items.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+      } else if (sortVal === 'model-az') {
+        items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      } else if (sortVal === 'model-za') {
+        items.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
+      }
+
+      const grid = document.getElementById('productGrid');
+      if (!items.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#94a3b8;">No items found matching your criteria.</div>';
+        return;
+      }
+
+      grid.innerHTML = items.map(tab => {
+        const qtyVal = (tab.qty !== undefined && tab.qty !== null) ? Number(tab.qty) : 1;
+        
+        let stockBadgeHtml = '';
+        if (qtyVal <= 0) {
+          stockBadgeHtml = `<span class="stock-badge out-stock">Out of Stock</span>`;
+        } else if (qtyVal <= 2) {
+          stockBadgeHtml = `<span class="stock-badge low-stock">Only ${qtyVal} Left</span>`;
+        } else {
+          stockBadgeHtml = `<span class="stock-badge in-stock">${qtyVal} Available</span>`;
+        }
+
+        const msgHyd = encodeURIComponent(`Hi Ganga Computers (Hyderabad), I want to buy: ${tab.title} for ₹${Number(tab.price).toLocaleString('en-IN')}. Is this available?`);
+        const msgAnk = encodeURIComponent(`Hi Ganga Computers (Anakapalli), I want to buy: ${tab.title} for ₹${Number(tab.price).toLocaleString('en-IN')}. Is this available?`);
+
+        return `
+          <div class="card">
+            <img src="${tab.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" class="card-img" alt="${tab.title}" loading="lazy" />
+            <div class="card-body">
+              <span class="card-brand">${tab.brand} • ${tab.category || 'Tablet'}</span>
+              <h3 class="card-title">${tab.title}</h3>
+              ${tab.extra ? `<div style="color:#fbbf24;font-size:0.75rem;margin-bottom:8px;">✨ ${tab.extra}</div>` : ''}
+              <div class="spec-pills">
+                ${(tab.specs || []).map(s => `<span>${s}</span>`).join('')}
+              </div>
+              <div class="card-footer">
+                <div class="price-row">
+                  <div class="price">₹${Number(tab.price).toLocaleString('en-IN')}</div>
+                  ${stockBadgeHtml}
+                </div>
+                <div class="wa-btns">
+                  <a href="https://wa.me/${WHATSAPP_ANAKAPALLI}?text=${msgAnk}" target="_blank" class="wa-btn anakapalli">
+                    ${WA_SVG}
+                    <span>Anakapalli</span>
+                  </a>
+                  <a href="https://wa.me/${WHATSAPP_HYDERABAD}?text=${msgHyd}" target="_blank" class="wa-btn">
+                    ${WA_SVG}
+                    <span>Hyderabad</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    loadData();
+  </script>
+</body>
+</html>

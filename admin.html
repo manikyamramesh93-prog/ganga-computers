@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ganga Computers | Admin Login & Stock Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #2563eb; --bg: #0b0f19; --surface: #111827; --border: rgba(255,255,255,0.1); --text: #f8fafc; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    .login-wrapper {
+      max-width: 380px;
+      margin: 80px auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 30px 24px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .login-wrapper h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 6px; text-align: center; }
+    .login-wrapper p { font-size: 0.82rem; color: #94a3b8; text-align: center; margin-bottom: 20px; }
+    .login-group { margin-bottom: 14px; }
+    .login-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 5px; }
+    .login-group input { width: 100%; padding: 10px 12px; background: #0b0f19; border: 1px solid var(--border); color: white; border-radius: 8px; outline: none; font-size: 0.9rem; }
+    .login-group input:focus { border-color: var(--primary); }
+    .btn-login { width: 100%; background: var(--primary); color: white; border: none; padding: 11px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; font-size: 0.9rem; }
+    .btn-login:hover { background: #1d4ed8; }
+    .login-error { color: #ef4444; font-size: 0.8rem; text-align: center; margin-top: 10px; display: none; }
+
+    #adminContent { display: none; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .header-btns { display: flex; gap: 10px; align-items: center; }
+    .btn-export { background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .btn-logout { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    
+    /* Special Offer Admin Box */
+    .offer-box {
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(185, 28, 28, 0.05));
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .offer-box h4 {
+      color: #f87171;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .offer-input-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .offer-input-group input {
+      flex: 1;
+      padding: 9px 12px;
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      color: white;
+      border-radius: 6px;
+      outline: none;
+      font-size: 0.88rem;
+    }
+    .btn-save-offer {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-clear-offer {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .form-box { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 28px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .three-col { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 4px; }
+    .form-group input, .form-group select { width: 100%; padding: 9px 12px; background: #0b0f19; border: 1px solid var(--border); color: white; border-radius: 6px; outline: none; }
+    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+
+    table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 10px; overflow: hidden; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    th { background: #162032; color: #94a3b8; }
+    .btn-del { background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+    .btn-edit { background: #0284c7; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-right: 4px; }
+    .qty-badge { background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 2px 7px; border-radius: 4px; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper" id="loginWrapper">
+    <h2>Ganga Computers</h2>
+    <p>Admin Stock Control Portal</p>
+    
+    <form onsubmit="handleLogin(event)">
+      <div class="login-group">
+        <label>User ID</label>
+        <input type="text" id="usernameInput" placeholder="Enter User ID" required autocomplete="username" />
+      </div>
+      <div class="login-group">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="Enter Password" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-login">Login to Dashboard</button>
+      <div class="login-error" id="loginError">Invalid User ID or Password</div>
+    </form>
+  </div>
+
+  <div class="container" id="adminContent">
+    <div class="header">
+      <div>
+        <h2>Ganga Computers Stock Manager</h2>
+        <p style="color:#94a3b8;font-size:0.85rem;">Add/Edit items below, then click "Export stock.json"</p>
+      </div>
+      <div class="header-btns">
+        <button class="btn-export" onclick="exportJSON()">📥 Export stock.json</button>
+        <button class="btn-logout" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Special Offer Flashing Bar Setting -->
+    <div class="offer-box">
+      <h4>⚡ Top Special Offer Flashing Banner</h4>
+      <p style="font-size:0.78rem; color:#cbd5e1;">Leave empty if there are no ongoing offers.</p>
+      <div class="offer-input-group">
+        <input type="text" id="specialOfferInput" placeholder="e.g. 🔥 MEGA SALE: Flat ₹500 OFF on all Tablets this week! Valid till Sunday!" />
+        <button type="button" class="btn-save-offer" onclick="updateOffer()">Set Flash Offer</button>
+        <button type="button" class="btn-clear-offer" onclick="clearOffer()">Clear</button>
+      </div>
+    </div>
+
+    <div class="form-box">
+      <h3 id="formTitle" style="margin-bottom:12px;">Add Device</h3>
+      <form id="stockForm" onsubmit="saveItem(event)">
+        <input type="hidden" id="itemId" value="" />
+
+        <div class="two-col">
+          <div class="form-group">
+            <label>Device Category</label>
+            <select id="category">
+              <option value="Tablet">Tablet / iPad</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Computer">Desktop PC</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Brand</label>
+            <select id="brand">
+              <option value="Samsung">Samsung</option>
+              <option value="Lenovo">Lenovo</option>
+              <option value="Apple">Apple</option>
+              <option value="Dell">Dell</option>
+              <option value="HP">HP</option>
+              <option value="Asus">Asus</option>
+              <option value="Acer">Acer</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="three-col">
+          <div class="form-group">
+            <label>Model Name</label>
+            <input type="text" id="title" placeholder="e.g. Dell Latitude 7490 i5" required />
+          </div>
+          <div class="form-group">
+            <label>Selling Price (₹)</label>
+            <input type="number" id="price" placeholder="18500" required />
+          </div>
+          <div class="form-group">
+            <label>Available Qty</label>
+            <input type="number" id="qty" placeholder="1" min="0" value="1" required />
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-group">
+            <label>Condition</label>
+            <select id="condition">
+              <option value="Like New">Like New</option>
+              <option value="Excellent">Excellent</option>
+              <option value="Good">Good</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Accessories / Extra Note (Optional)</label>
+            <input type="text" id="extra" placeholder="e.g. Pouch & glass ₹350 extra" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Specifications (Comma separated)</label>
+          <input type="text" id="specs" placeholder="8GB RAM, 256GB SSD, Core i5, 14 inch" required />
+        </div>
+
+        <div class="form-group">
+          <label>Upload Photo (Optional)</label>
+          <input type="file" id="file" accept="image/*" onchange="encodeImg(event)" style="margin-bottom:6px;" />
+          <input type="text" id="image" placeholder="Or paste image URL" />
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">Add to Stock List</button>
+      </form>
+    </div>
+
+    <h3>Current Stock (<span id="count">0</span> items)</h3>
+    <table style="margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Available Qty</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const AUTH_USER = "admin";
+    const AUTH_PASS = "admin123";
+
+    function checkExistingAuth() {
+      if (sessionStorage.getItem("ganga_admin_auth") === "true") {
+        document.getElementById("loginWrapper").style.display = "none";
+        document.getElementById("adminContent").style.display = "block";
+        initStock();
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById("usernameInput").value.trim();
+      const pass = document.getElementById("passwordInput").value.trim();
+      const err = document.getElementById("loginError");
+
+      if (user === AUTH_USER && pass === AUTH_PASS) {
+        sessionStorage.setItem("ganga_admin_auth", "true");
+        err.style.display = "none";
+        document.getElementById("loginWrapper").style.display = "none";
+        document.getElementById("adminContent").style.display = "block";
+        initStock();
+      } else {
+        err.style.display = "block";
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem("ganga_admin_auth");
+      document.getElementById("adminContent").style.display = "none";
+      document.getElementById("loginWrapper").style.display = "block";
+      document.getElementById("usernameInput").value = "";
+      document.getElementById("passwordInput").value = "";
+      document.getElementById("loginError").style.display = "none";
+    }
+
+    let stockData = {
+      specialOffer: "",
+      items: []
+    };
+
+    function initStock() {
+      fetch('stock.json?t=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            stockData.items = data;
+            stockData.specialOffer = "";
+          } else if (data && typeof data === 'object') {
+            stockData.items = Array.isArray(data.items) ? data.items : [];
+            stockData.specialOffer = data.specialOffer || "";
+          }
+          document.getElementById('specialOfferInput').value = stockData.specialOffer;
+          render();
+        })
+        .catch(() => {
+          stockData = { specialOffer: "", items: [] };
+          render();
+        });
+    }
+
+    function updateOffer() {
+      stockData.specialOffer = document.getElementById('specialOfferInput').value.trim();
+      alert(stockData.specialOffer ? "Offer set! Click 'Export stock.json' to publish." : "Offer cleared!");
+    }
+
+    function clearOffer() {
+      document.getElementById('specialOfferInput').value = "";
+      stockData.specialOffer = "";
+      alert("Offer removed. Remember to click 'Export stock.json'.");
+    }
+
+    function render() {
+      document.getElementById('count').textContent = stockData.items.length;
+      const tbody = document.getElementById('tableBody');
+      if (!stockData.items.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">No items in stock.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = stockData.items.map((item, idx) => `
+        <tr>
+          <td><strong>${item.title}</strong><br><small style="color:#94a3b8;">${item.brand}</small></td>
+          <td>${item.category || 'Tablet'}</td>
+          <td>₹${Number(item.price).toLocaleString('en-IN')}</td>
+          <td><span class="qty-badge">${item.qty !== undefined ? item.qty : 1} in stock</span></td>
+          <td>
+            <button class="btn-edit" onclick="editItem(${idx})">Edit</button>
+            <button class="btn-del" onclick="deleteItem(${idx})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function encodeImg(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.src = evt.target.result;
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 600;
+          const scale = MAX_WIDTH / img.width;
+          canvas.width = (img.width > MAX_WIDTH) ? MAX_WIDTH : img.width;
+          canvas.height = (img.width > MAX_WIDTH) ? (img.height * scale) : img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          document.getElementById('image').value = canvas.toDataURL('image/jpeg', 0.8);
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveItem(e) {
+      e.preventDefault();
+      const idVal = document.getElementById('itemId').value;
+      const item = {
+        id: idVal ? Number(idVal) : Date.now(),
+        category: document.getElementById('category').value,
+        brand: document.getElementById('brand').value,
+        title: document.getElementById('title').value.trim(),
+        price: Number(document.getElementById('price').value),
+        qty: Number(document.getElementById('qty').value) || 0,
+        condition: document.getElementById('condition').value,
+        extra: document.getElementById('extra').value.trim() || null,
+        specs: document.getElementById('specs').value.split(',').map(s => s.trim()).filter(Boolean),
+        image: document.getElementById('image').value || "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
+      };
+
+      if (idVal) {
+        const index = stockData.items.findIndex(i => i.id == idVal);
+        if (index !== -1) stockData.items[index] = item;
+      } else {
+        stockData.items.unshift(item);
+      }
+
+      resetForm();
+      render();
+    }
+
+    function editItem(idx) {
+      const item = stockData.items[idx];
+      document.getElementById('itemId').value = item.id;
+      document.getElementById('category').value = item.category || 'Tablet';
+      document.getElementById('brand').value = item.brand;
+      document.getElementById('title').value = item.title;
+      document.getElementById('price').value = item.price;
+      document.getElementById('qty').value = item.qty !== undefined ? item.qty : 1;
+      document.getElementById('condition').value = item.condition;
+      document.getElementById('extra').value = item.extra || '';
+      document.getElementById('specs').value = (item.specs || []).join(', ');
+      document.getElementById('image').value = item.image || '';
+
+      document.getElementById('formTitle').textContent = "Edit Device";
+      document.getElementById('submitBtn').textContent = "Update Device";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function deleteItem(idx) {
+      if (confirm(`Delete "${stockData.items[idx].title}"?`)) {
+        stockData.items.splice(idx, 1);
+        render();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('stockForm').reset();
+      document.getElementById('itemId').value = "";
+      document.getElementById('qty').value = "1";
+      document.getElementById('formTitle').textContent = "Add Device";
+      document.getElementById('submitBtn').textContent = "Add to Stock List";
+    }
+
+    function exportJSON() {
+      stockData.specialOffer = document.getElementById('specialOfferInput').value.trim();
+      const blob = new Blob([JSON.stringify(stockData, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'stock.json';
+      a.click();
+    }
+
+    checkExistingAuth();
+  </script>
+</body>
+</html>
