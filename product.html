@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Product Details | Ganga Computers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-card: #162032;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    header { position: sticky; top: 0; z-index: 40; background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 12px 16px; }
+    .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    
+    .btn-back {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.15); }
+
+    .cart-btn-header {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cart-count-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    .container { max-width: 1100px; margin: 32px auto 60px; padding: 0 16px; width: 100%; flex: 1; }
+    
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    @media (min-width: 768px) {
+      .product-layout { grid-template-columns: 1fr 1fr; padding: 36px; }
+    }
+
+    .main-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      background: #0d1424;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .info-box { display: flex; flex-direction: column; justify-content: center; }
+    .brand-tag { font-size: 0.8rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 6px; }
+    .product-title { font-size: 1.6rem; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
+    .price-wrap { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+    .price-val { font-size: 1.8rem; font-weight: 800; color: #fff; }
+    
+    .stock-badge { font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .in-stock { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .low-stock { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .out-stock { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
+    .specs-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0; }
+    .specs-list span {
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    @media (min-width: 480px) {
+      .btn-group { flex-direction: row; }
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-add-cart {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #3b82f6;
+    }
+    .btn-add-cart:hover { background: #2563eb; color: #fff; }
+    
+    .btn-buy-now {
+      background: #16a34a;
+      color: #fff;
+    }
+    .btn-buy-now:hover { background: #15803d; }
+
+    /* Cart Slide-in Drawer */
+    .cart-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 380px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 100;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .cart-drawer.active { transform: translateX(0); }
+
+    .cart-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 14px 0; display: flex; flex-direction: column; gap: 12px; }
+    .cart-item { display: flex; gap: 10px; background: var(--surface-card); padding: 10px; border-radius: 8px; align-items: center; }
+    .cart-item img { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-title { font-size: 0.85rem; font-weight: 700; color: #fff; }
+    .cart-item-price { font-size: 0.8rem; color: #38bdf8; }
+    .cart-del-btn { background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 1rem; }
+    
+    .cart-footer { border-top: 1px solid var(--border); padding-top: 14px; }
+    .cart-total-row { display: flex; justify-content: space-between; font-weight: 800; font-size: 1.1rem; margin-bottom: 14px; }
+
+    /* Checkout Modal */
+    .checkout-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 110; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .checkout-modal-overlay.active { display: flex; }
+    .checkout-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 440px; width: 100%; padding: 20px; }
+    .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; outline: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <a href="index.html" class="brand">Ganga Computers</a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn-back">← Back to Store</a>
+        <button class="cart-btn-header" onclick="toggleCartDrawer()">
+          🛒 Cart <span id="cartCount" class="cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="productContent" class="product-layout">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        Loading product details...
+      </div>
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div id="cartOverlay" class="cart-drawer-overlay" onclick="toggleCartDrawer()"></div>
+  <div id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 style="font-weight: 800;">Your Cart</h3>
+      <button style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;" onclick="toggleCartDrawer()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total:</span>
+        <span id="cartTotalText">₹0</span>
+      </div>
+      <button class="action-btn btn-buy-now" style="width:100%;" onclick="openCheckoutModal()">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="checkout-modal-overlay">
+    <div class="checkout-modal">
+      <h3 style="margin-bottom:12px;">Shipping Details</h3>
+      <input type="text" id="custName" class="modal-input" placeholder="Full Name" required />
+      <input type="tel" id="custPhone" class="modal-input" placeholder="Phone Number (10 digits)" required />
+      <textarea id="custAddress" class="modal-input" rows="3" placeholder="Full Delivery Address with Pincode" required></textarea>
+      
+      <div style="margin: 12px 0; font-size:0.85rem;">
+        <label><input type="radio" name="payMethod" value="COD" checked> Cash on Delivery</label> &nbsp;
+        <label><input type="radio" name="payMethod" value="UPI"> UPI / QR Code</label>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="action-btn btn-add-cart" onclick="closeCheckoutModal()">Cancel</button>
+        <button class="action-btn btn-buy-now" onclick="submitOrder()">Place Order</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentItem = null;
+
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem('ganga_cart') || '[]'); } catch (e) { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem('ganga_cart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+    function updateCartBadge() {
+      const cart = getCart();
+      const count = cart.reduce((acc, c) => acc + (c.qty || 1), 0);
+      document.getElementById('cartCount').textContent = count;
+    }
+
+    function toggleCartDrawer() {
+      document.getElementById('cartDrawer').classList.toggle('active');
+      document.getElementById('cartOverlay').classList.toggle('active');
+      renderCartItems();
+    }
+
+    function addToCart() {
+      if (!currentItem) return;
+      const cart = getCart();
+      const existing = cart.find(c => c.title === currentItem.title);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({
+          title: currentItem.title,
+          price: currentItem.price,
+          image: currentItem.image,
+          qty: 1
+        });
+      }
+      saveCart(cart);
+      toggleCartDrawer();
+    }
+
+    function buyNow() {
+      if (!currentItem) return;
+      saveCart([{
+        title: currentItem.title,
+        price: currentItem.price,
+        image: currentItem.image,
+        qty: 1
+      }]);
+      openCheckoutModal();
+    }
+
+    function removeFromCart(index) {
+      const cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCartItems();
+    }
+
+    function renderCartItems() {
+      const cart = getCart();
+      const container = document.getElementById('cartItemsContainer');
+      const totalEl = document.getElementById('cartTotalText');
+
+      if (!cart.length) {
+        container.innerHTML = `<div style="text-align:center; color:#94a3b8; padding:30px 0;">Your cart is empty.</div>`;
+        totalEl.textContent = "₹0";
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = cart.map((item, idx) => {
+        const itemTotal = Number(item.price || 0) * (item.qty || 1);
+        total += itemTotal;
+        return `
+          <div class="cart-item">
+            <img src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" alt="${item.title}" />
+            <div class="cart-item-info">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-price">₹${Number(item.price).toLocaleString('en-IN')} × ${item.qty}</div>
+            </div>
+            <button class="cart-del-btn" onclick="removeFromCart(${idx})">🗑</button>
+          </div>
+        `;
+      }).join('');
+
+      totalEl.textContent = "₹" + total.toLocaleString('en-IN');
+    }
+
+    function openCheckoutModal() {
+      const cart = getCart();
+      if (!cart.length) { alert('Your cart is empty!'); return; }
+      document.getElementById('cartDrawer').classList.remove('active');
+      document.getElementById('cartOverlay').classList.remove('active');
+      document.getElementById('checkoutModal').classList.add('active');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+    function submitOrder() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pay = document.querySelector('input[name="payMethod"]:checked').value;
+
+  if (!name || !phone || !address) {
+    alert('Please fill in your name, phone, and complete delivery address.');
+    return;
+  }
+
+  const cart = getCart();
+  const orderId = 'GC-' + Math.floor(100000 + Math.random() * 900000);
+
+  // Construct message for Admin
+  let orderMsg = `🛒 *NEW ORDER RECEIVED - ${orderId}*\n\n`;
+  orderMsg += `👤 *Customer:* ${name}\n`;
+  orderMsg += `📞 *Phone:* ${phone}\n`;
+  orderMsg += `📍 *Delivery Address:* ${address}\n`;
+  orderMsg += `💳 *Payment Method:* ${pay}\n\n`;
+  orderMsg += `📦 *Items Ordered:*\n`;
+
+  let total = 0;
+  cart.forEach((item, i) => {
+    const sub = Number(item.price || 0) * item.qty;
+    total += sub;
+    orderMsg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
+  });
+  orderMsg += `\n💰 *Total Value: ₹${total.toLocaleString('en-IN')}*`;
+
+  // Choose admin number (e.g., Hyderabad or primary store number)
+  const ADMIN_WHATSAPP = "919599053593";
+
+  // Clear cart and close modal
+  localStorage.removeItem('ganga_cart');
+  updateCartBadge();
+  closeCheckoutModal();
+
+  // Forward order directly to WhatsApp
+  window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(orderMsg)}`, '_blank');
+}
+
+    function loadProduct() {
+      updateCartBadge();
+      const params = new URLSearchParams(window.location.search);
+      const queryTitle = params.get('title') || params.get('id');
+
+      if (!queryTitle) {
+        document.getElementById('productContent').innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+            <h3>Product not found</h3>
+            <a href="index.html" class="btn-back" style="margin-top: 14px;">Return to Store</a>
+          </div>
+        `;
+        return;
+      }
+
+      fetch('stock.json?t=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          let items = Array.isArray(data) ? data : (data.items || []);
+          currentItem = items.find(item => 
+            (item.title && item.title.trim().toLowerCase() === queryTitle.trim().toLowerCase()) ||
+            (item.id && String(item.id) === queryTitle)
+          );
+
+          if (!currentItem) {
+            document.getElementById('productContent').innerHTML = `
+              <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <h3>Product not found</h3>
+                <p style="color:#94a3b8; margin: 8px 0 16px;">The requested device could not be located.</p>
+                <a href="index.html" class="btn-back">Return to Store</a>
+              </div>
+            `;
+            return;
+          }
+
+          document.title = `${currentItem.title} | Ganga Computers`;
+          const qtyVal = (currentItem.qty !== undefined && currentItem.qty !== null) ? Number(currentItem.qty) : 1;
+          
+          let stockBadgeHtml = qtyVal <= 0 
+            ? `<span class="stock-badge out-stock">Out of Stock</span>`
+            : (qtyVal <= 2 ? `<span class="stock-badge low-stock">Only ${qtyVal} Units Left</span>` : `<span class="stock-badge in-stock">${qtyVal} Available In Stock</span>`);
+
+          document.getElementById('productContent').innerHTML = `
+            <div>
+              <img src="${currentItem.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" alt="${currentItem.title}" class="main-img" />
+            </div>
+            <div class="info-box">
+              <span class="brand-tag">${currentItem.brand || 'Device'} • ${currentItem.category || 'Tablet/Laptop'}</span>
+              <h1 class="product-title">${currentItem.title}</h1>
+              <div class="price-wrap">
+                <span class="price-val">₹${Number(currentItem.price).toLocaleString('en-IN')}</span>
+                ${stockBadgeHtml}
+              </div>
+
+              ${currentItem.extra ? `<div style="color:#fbbf24;font-size:0.85rem;margin-bottom:12px;">✨ ${currentItem.extra}</div>` : ''}
+
+              <div class="specs-list">
+                ${(currentItem.specs || []).map(s => `<span>${s}</span>`).join('')}
+              </div>
+
+              <div class="btn-group">
+                <button class="action-btn btn-add-cart" onclick="addToCart()">
+                  🛒 Add to Cart
+                </button>
+                <button class="action-btn btn-buy-now" onclick="buyNow()">
+                  ⚡ Buy Now
+                </button>
+              </div>
+            </div>
+          `;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('productContent').innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">Failed to load item.</div>`;
+        });
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
