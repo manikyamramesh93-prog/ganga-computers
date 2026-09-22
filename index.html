@@ -116,58 +116,41 @@
     .spec-pills span { background: rgba(255, 255, 255, 0.05); font-size: 0.72rem; color: #cbd5e1; padding: 4px 8px; border-radius: 4px; }
     
     .card-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-    .price-row { display: flex; justify-content: space-between; align-items: center; }
+    
+    /* Price Row with Side-by-Side Stock & WhatsApp */
+    .price-row { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
     .price { font-size: 1.3rem; font-weight: 800; color: #fff; }
+    
+    .price-stock-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
     
     .stock-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
     .in-stock { background: rgba(16, 185, 129, 0.12); color: #34d399; }
     .low-stock { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
     .out-stock { background: rgba(239, 68, 68, 0.12); color: #f87171; }
     
-    /* 1-Row Action Button Group */
-    .action-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .btn-ecom {
-      flex: 1;
-      min-height: 38px;
-      padding: 6px 4px;
-      border-radius: 8px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      cursor: pointer;
-      border: none;
-      transition: opacity 0.2s ease, transform 0.1s ease;
-      white-space: nowrap;
-    }
-    .btn-ecom:active { transform: scale(0.98); }
-    .btn-cart { background: #1e293b; color: #f8fafc; border: 1px solid #3b82f6; }
-    .btn-cart:hover { background: #2563eb; color: #fff; }
-    .btn-buy { background: #ea580c; color: #fff; }
-    .btn-buy:hover { background: #c2410c; }
-
-    /* WhatsApp Dropup Elements */
+    /* Compact WhatsApp Trigger Icon in Price Row */
     .wa-dropdown {
       position: relative;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
     }
 
     .wa-trigger-btn {
       background: #16a34a;
       color: #fff;
       border: none;
-      width: 38px;
-      min-width: 38px;
-      height: 38px;
-      border-radius: 8px;
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -176,11 +159,12 @@
     }
     .wa-trigger-btn:hover { background: #15803d; }
     .wa-trigger-btn:active { transform: scale(0.96); }
-    .wa-trigger-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .wa-trigger-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
+    /* Dropup menu popping above the icon */
     .wa-menu {
       position: absolute;
-      bottom: calc(100% + 8px);
+      bottom: calc(100% + 6px);
       right: 0;
       background: #1e293b;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -198,7 +182,6 @@
       z-index: 50;
     }
 
-    /* Pop out on hover or focus */
     .wa-dropdown:hover .wa-menu,
     .wa-dropdown:focus-within .wa-menu {
       opacity: 1;
@@ -210,11 +193,11 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 10px;
+      padding: 7px 9px;
       border-radius: 6px;
       color: #fff;
       text-decoration: none;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       white-space: nowrap;
       transition: background 0.15s ease;
@@ -223,7 +206,37 @@
     .wa-branch-link.anakapalli:hover { background: #0284c7; color: #fff; }
     .wa-branch-link.hyderabad { background: rgba(22, 163, 74, 0.22); color: #4ade80; border: 1px solid rgba(22, 163, 74, 0.4); }
     .wa-branch-link.hyderabad:hover { background: #16a34a; color: #fff; }
-    .wa-branch-link svg { width: 14px; height: 14px; fill: currentColor; }
+    .wa-branch-link svg { width: 13px; height: 13px; fill: currentColor; }
+
+    /* 2-Button Row for Add to Cart & Buy Now */
+    .ecom-btns { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 8px; 
+      width: 100%; 
+    }
+    
+    .btn-ecom {
+      min-height: 38px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-ecom:active { transform: scale(0.98); }
+    .btn-cart { background: #1e293b; color: #f8fafc; border: 1px solid #3b82f6; }
+    .btn-cart:hover { background: #2563eb; color: #fff; }
+    .btn-buy { background: #ea580c; color: #fff; }
+    .btn-buy:hover { background: #c2410c; }
 
     /* Slide-in Cart */
     .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
@@ -655,33 +668,36 @@
                 ${(tab.specs || []).map(s => `<span>${s}</span>`).join('')}
               </div>
               <div class="card-footer">
+                
+                <!-- Price Row with Stock Badge and WhatsApp Dropup side-by-side -->
                 <div class="price-row">
                   <div class="price">₹${Number(tab.price).toLocaleString('en-IN')}</div>
-                  ${stockBadgeHtml}
+                  <div class="price-stock-right">
+                    ${stockBadgeHtml}
+                    <div class="wa-dropdown" tabindex="0">
+                      <button class="wa-trigger-btn" type="button" title="Chat on WhatsApp" aria-label="WhatsApp options">
+                        ${WA_SVG}
+                      </button>
+                      <div class="wa-menu">
+                        <a href="https://wa.me/${WHATSAPP_ANAKAPALLI}?text=${msgAnk}" target="_blank" class="wa-branch-link anakapalli">
+                          ${WA_SVG} Anakapalli
+                        </a>
+                        <a href="https://wa.me/${WHATSAPP_HYDERABAD}?text=${msgHyd}" target="_blank" class="wa-branch-link hyderabad">
+                          ${WA_SVG} Hyderabad
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
-                <!-- Single Row: Add to Cart | Buy Now | Hoverable WhatsApp Dropup -->
-                <div class="action-row">
+                <!-- Full-width 2-Button Grid for E-Commerce Actions -->
+                <div class="ecom-btns">
                   <button class="btn-ecom btn-cart" onclick="addToCartDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
-                    🛒 Add
+                    🛒 Add to Cart
                   </button>
                   <button class="btn-ecom btn-buy" onclick="buyNowDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
                     ⚡ Buy Now
                   </button>
-
-                  <div class="wa-dropdown" tabindex="0">
-                    <button class="wa-trigger-btn" type="button" title="Chat on WhatsApp">
-                      ${WA_SVG}
-                    </button>
-                    <div class="wa-menu">
-                      <a href="https://wa.me/${WHATSAPP_ANAKAPALLI}?text=${msgAnk}" target="_blank" class="wa-branch-link anakapalli">
-                        ${WA_SVG} Anakapalli
-                      </a>
-                      <a href="https://wa.me/${WHATSAPP_HYDERABAD}?text=${msgHyd}" target="_blank" class="wa-branch-link hyderabad">
-                        ${WA_SVG} Hyderabad
-                      </a>
-                    </div>
-                  </div>
                 </div>
 
               </div>
