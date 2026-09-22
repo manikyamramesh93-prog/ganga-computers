@@ -227,16 +227,18 @@
       justify-content: center;
       gap: 6px;
       cursor: pointer;
-      border: none;
-      transition: opacity 0.2s ease, transform 0.1s ease;
+      border: 1px solid #3b82f6;
+      background: #1e293b;
+      color: #f8fafc;
+      transition: all 0.2s ease;
       text-decoration: none;
       white-space: nowrap;
     }
+    .btn-ecom:hover {
+      background: #2563eb;
+      color: #fff;
+    }
     .btn-ecom:active { transform: scale(0.98); }
-    .btn-cart { background: #1e293b; color: #f8fafc; border: 1px solid #3b82f6; }
-    .btn-cart:hover { background: #2563eb; color: #fff; }
-    .btn-buy { background: #ea580c; color: #fff; }
-    .btn-buy:hover { background: #c2410c; }
 
     /* Slide-in Cart */
     .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
@@ -349,7 +351,7 @@
         <span>Total:</span>
         <span id="cartTotalText">₹0</span>
       </div>
-      <button class="btn-ecom btn-buy" style="width:100%; padding:12px;" onclick="openCheckoutModal()">
+      <button class="btn-ecom" style="width:100%; padding:12px; background:#2563eb; color:#fff; border-color:#2563eb;" onclick="openCheckoutModal()">
         Proceed to Checkout
       </button>
     </div>
@@ -376,8 +378,8 @@
       </div>
 
       <div style="display:flex; gap:8px;">
-        <button class="btn-ecom btn-cart" onclick="closeCheckoutModal()" style="flex:1;">Cancel</button>
-        <button class="btn-ecom btn-buy" onclick="submitOrder()" style="flex:1;">Place Order</button>
+        <button class="btn-ecom" onclick="closeCheckoutModal()" style="flex:1;">Cancel</button>
+        <button class="btn-ecom" onclick="submitOrder()" style="flex:1; background:#2563eb; color:#fff; border-color:#2563eb;">Place Order</button>
       </div>
     </div>
   </div>
@@ -692,10 +694,10 @@
                 
                 <!-- Full-width 2-Button Grid for E-Commerce Actions -->
                 <div class="ecom-btns">
-                  <button class="btn-ecom btn-cart" onclick="addToCartDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
+                  <button class="btn-ecom" onclick="addToCartDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
                     🛒 Add to Cart
                   </button>
-                  <button class="btn-ecom btn-buy" onclick="buyNowDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
+                  <button class="btn-ecom" onclick="buyNowDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
                     ⚡ Buy Now
                   </button>
                 </div>
