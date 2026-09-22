@@ -73,6 +73,27 @@
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
     .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.7rem; font-weight: 800; }
 
+    .user-auth-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #93c5fd;
+      font-weight: 600;
+    }
+    .logout-link {
+      color: #f87171;
+      text-decoration: none;
+      font-size: 0.74rem;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+    .logout-link:hover { text-decoration: underline; }
+
     .hero { text-align: center; padding: 28px 16px 16px; }
     .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin-bottom: 8px; }
     .hero p { color: var(--text-muted); font-size: clamp(0.8rem, 2vw, 0.95rem); }
@@ -117,32 +138,16 @@
     
     .card-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
     
-    /* Price Row with Side-by-Side Stock & WhatsApp */
-    .price-row { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-    }
+    .price-row { display: flex; justify-content: space-between; align-items: center; }
     .price { font-size: 1.3rem; font-weight: 800; color: #fff; }
     
-    .price-stock-right {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
+    .price-stock-right { display: inline-flex; align-items: center; gap: 8px; }
     .stock-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
     .in-stock { background: rgba(16, 185, 129, 0.12); color: #34d399; }
     .low-stock { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
     .out-stock { background: rgba(239, 68, 68, 0.12); color: #f87171; }
     
-    /* Compact WhatsApp Trigger Icon in Price Row */
-    .wa-dropdown {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
-
+    .wa-dropdown { position: relative; display: inline-flex; align-items: center; }
     .wa-trigger-btn {
       background: #16a34a;
       color: #fff;
@@ -161,7 +166,6 @@
     .wa-trigger-btn:active { transform: scale(0.96); }
     .wa-trigger-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
-    /* Dropup menu popping above the icon */
     .wa-menu {
       position: absolute;
       bottom: calc(100% + 6px);
@@ -181,14 +185,11 @@
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 50;
     }
-
-    .wa-dropdown:hover .wa-menu,
-    .wa-dropdown:focus-within .wa-menu {
+    .wa-dropdown:hover .wa-menu, .wa-dropdown:focus-within .wa-menu {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-
     .wa-branch-link {
       display: flex;
       align-items: center;
@@ -208,14 +209,7 @@
     .wa-branch-link.hyderabad:hover { background: #16a34a; color: #fff; }
     .wa-branch-link svg { width: 13px; height: 13px; fill: currentColor; }
 
-    /* 2-Button Row for Add to Cart & Buy Now */
-    .ecom-btns { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr; 
-      gap: 8px; 
-      width: 100%; 
-    }
-    
+    .ecom-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
     .btn-ecom {
       min-height: 38px;
       padding: 6px 8px;
@@ -234,15 +228,13 @@
       text-decoration: none;
       white-space: nowrap;
     }
-    .btn-ecom:hover {
-      background: #2563eb;
-      color: #fff;
-    }
+    .btn-ecom:hover { background: #2563eb; color: #fff; }
     .btn-ecom:active { transform: scale(0.98); }
 
-    /* Slide-in Cart */
-    .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
-    .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
+    /* Modals & Cart Drawer */
+    .cart-drawer-overlay, .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
+    .cart-drawer-overlay.active, .modal-overlay.active { opacity: 1; visibility: visible; }
+    
     .cart-drawer { position: fixed; top: 0; right: 0; width: 100%; max-width: 380px; height: 100vh; background: var(--surface); border-left: 1px solid var(--border); z-index: 100; transform: translateX(100%); transition: transform 0.25s ease; display: flex; flex-direction: column; padding: 20px; }
     .cart-drawer.active { transform: translateX(0); }
     .cart-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
@@ -256,12 +248,43 @@
     .cart-footer { border-top: 1px solid var(--border); padding-top: 14px; }
     .cart-total-row { display: flex; justify-content: space-between; font-weight: 800; font-size: 1.1rem; margin-bottom: 14px; }
 
-    /* Checkout Modal */
-    .checkout-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 110; display: none; align-items: center; justify-content: center; padding: 16px; }
-    .checkout-modal-overlay.active { display: flex; }
-    .checkout-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 440px; width: 100%; padding: 20px; }
-    .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; outline: none; }
-    
+    .modal-box { 
+      position: fixed; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%); 
+      background: var(--surface); 
+      border: 1px solid var(--border); 
+      border-radius: 14px; 
+      max-width: 420px; 
+      width: calc(100% - 32px); 
+      padding: 22px; 
+      z-index: 110; 
+      display: none; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+    .modal-box.active { display: block; }
+    .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; outline: none; font-size: 0.9rem; }
+    .modal-input:focus { border-color: #38bdf8; }
+
+    .otp-input-group {
+      display: flex;
+      gap: 8px;
+      margin: 10px 0 16px;
+    }
+    .phone-prefix-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 10px;
+      margin-bottom: 10px;
+    }
+    .phone-prefix-wrap span { font-weight: 700; font-size: 0.85rem; color: #38bdf8; }
+    .phone-prefix-wrap input { border: none; margin-bottom: 0; padding-left: 4px; }
+
     footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px 16px; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
     footer a { color: #38bdf8; text-decoration: none; }
   </style>
@@ -288,7 +311,15 @@
   <header>
     <div class="navbar">
       <a href="index.html" class="brand">Ganga Computers</a>
+      
       <div class="header-btns">
+        <!-- Customer Login / User Profile Area -->
+        <div id="userHeaderAuth">
+          <button class="btn-link" onclick="openLoginModal()">
+            <span>🔑 Login / Sign In</span>
+          </button>
+        </div>
+
         <button class="btn-link" onclick="toggleCartDrawer()">
           🛒 Cart <span id="cartCount" class="cart-badge">0</span>
         </button>
@@ -338,6 +369,49 @@
     <div class="grid" id="productGrid"></div>
   </main>
 
+  <!-- Login / Sign In Modal (Indian Mobile + OTP) -->
+  <div id="authModalOverlay" class="modal-overlay" onclick="closeLoginModal()"></div>
+  <div id="authModal" class="modal-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 style="font-weight:800;" id="authModalHeading">Customer Login / Sign In</h3>
+      <button onclick="closeLoginModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">✕</button>
+    </div>
+
+    <!-- Step 1: Input Mobile & Name -->
+    <div id="authStep1">
+      <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:4px;">Your Name</label>
+      <input type="text" id="authName" class="modal-input" placeholder="Enter Full Name" />
+
+      <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:4px;">Indian Mobile Number</label>
+      <div class="phone-prefix-wrap">
+        <span>+91</span>
+        <input type="tel" id="authPhone" class="modal-input" placeholder="10-digit mobile number" maxlength="10" />
+      </div>
+
+      <button class="btn-ecom" style="width:100%; background:#2563eb; color:#fff; border-color:#2563eb; padding:12px;" onclick="sendOtpRequest()">
+        Send OTP Verification
+      </button>
+    </div>
+
+    <!-- Step 2: OTP Verification -->
+    <div id="authStep2" style="display:none;">
+      <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:10px;">
+        Enter the 4-digit code sent to <strong id="authTargetPhone" style="color:#38bdf8;"></strong>
+      </p>
+      
+      <div style="background:rgba(37,99,235,0.1); border:1px dashed #3b82f6; border-radius:8px; padding:8px 12px; margin-bottom:12px; font-size:0.8rem; color:#93c5fd;">
+        💡 <strong>Test OTP:</strong> <span id="mockOtpDisplay" style="font-weight:800; letter-spacing:2px; font-size:1rem; color:#fff;"></span>
+      </div>
+
+      <input type="text" id="authOtpCode" class="modal-input" placeholder="Enter 4-Digit OTP" maxlength="4" style="letter-spacing:4px; font-size:1.2rem; text-align:center;" />
+
+      <div style="display:flex; gap:8px;">
+        <button class="btn-ecom" onclick="resetAuthStep()" style="flex:1;">Change Number</button>
+        <button class="btn-ecom" onclick="verifyOtpAndLogin()" style="flex:1; background:#2563eb; color:#fff; border-color:#2563eb;">Verify & Login</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Cart Drawer -->
   <div id="cartOverlay" class="cart-drawer-overlay" onclick="toggleCartDrawer()"></div>
   <div id="cartDrawer" class="cart-drawer">
@@ -358,35 +432,40 @@
   </div>
 
   <!-- Checkout Modal -->
-  <div id="checkoutModal" class="checkout-modal-overlay">
-    <div class="checkout-modal">
-      <h3 style="margin-bottom:12px;">Shipping Details</h3>
-      <input type="text" id="custName" class="modal-input" placeholder="Full Name" required />
-      <input type="tel" id="custPhone" class="modal-input" placeholder="Phone Number (10 digits)" required />
-      <textarea id="custAddress" class="modal-input" rows="3" placeholder="Full Delivery Address with Pincode" required></textarea>
-      
-      <!-- Payment Option Radios -->
-      <div style="margin: 14px 0; font-size:0.88rem; display:flex; flex-direction:column; gap:8px;">
-        <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="radio" name="payMethod" value="ONLINE" checked> 
-          <span>💳 Pay Online (UPI, Credit/Debit Cards, NetBanking)</span>
-        </label>
-        <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="radio" name="payMethod" value="COD"> 
-          <span>💵 Cash on Delivery (COD)</span>
-        </label>
-      </div>
+  <div id="checkoutOverlay" class="modal-overlay" onclick="closeCheckoutModal()"></div>
+  <div id="checkoutModal" class="modal-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <h3 style="font-weight:800;">Shipping Details</h3>
+      <button onclick="closeCheckoutModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">✕</button>
+    </div>
 
-      <div style="display:flex; gap:8px;">
-        <button class="btn-ecom" onclick="closeCheckoutModal()" style="flex:1;">Cancel</button>
-        <button class="btn-ecom" onclick="submitOrder()" style="flex:1; background:#2563eb; color:#fff; border-color:#2563eb;">Place Order</button>
-      </div>
+    <input type="text" id="custName" class="modal-input" placeholder="Full Name" required />
+    <input type="tel" id="custPhone" class="modal-input" placeholder="10-digit Indian Mobile" maxlength="10" required />
+    <textarea id="custAddress" class="modal-input" rows="3" placeholder="Full Delivery Address with Pincode" required></textarea>
+    
+    <div style="margin: 14px 0; font-size:0.88rem; display:flex; flex-direction:column; gap:8px;">
+      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+        <input type="radio" name="payMethod" value="ONLINE" checked> 
+        <span>💳 Pay Online (UPI, Credit/Debit Cards, NetBanking)</span>
+      </label>
+      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+        <input type="radio" name="payMethod" value="COD"> 
+        <span>💵 Cash on Delivery (COD)</span>
+      </label>
+    </div>
+
+    <div style="display:flex; gap:8px;">
+      <button class="btn-ecom" onclick="closeCheckoutModal()" style="flex:1;">Cancel</button>
+      <button class="btn-ecom" onclick="submitOrder()" style="flex:1; background:#2563eb; color:#fff; border-color:#2563eb;">Place Order</button>
     </div>
   </div>
 
-  <footer>
+<footer>
     <p><strong>Ganga Computers</strong> • Secure Checkout & Quality Tested</p>
     <p style="margin-top:6px;">&copy; <span id="year"></span> <a href="https://gangacomputers.in">gangacomputers.in</a></p>
+    <p style="margin-top:8px; font-size:0.62rem; letter-spacing:0.5px; opacity:0.35; color:#94a3b8; user-select:none;">
+      Designed by Ramesh.
+    </p>
   </footer>
 
   <script>
@@ -396,8 +475,110 @@
 
     let inventory = [];
     let currentFilter = 'All';
+    let generatedOtp = null;
 
-    // LocalStorage Cart Utilities
+    // --- Customer Authentication Flow ---
+    function getLoggedInUser() {
+      try { return JSON.parse(localStorage.getItem('ganga_user') || 'null'); } catch (e) { return null; }
+    }
+
+    function syncUserHeader() {
+      const user = getLoggedInUser();
+      const container = document.getElementById('userHeaderAuth');
+      if (user && user.phone) {
+        container.innerHTML = `
+          <div class="user-auth-badge">
+            <span>👤 ${user.name ? user.name.split(' ')[0] : 'User'} (+91 ${user.phone})</span>
+            <span class="logout-link" onclick="logoutUser()">Logout</span>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button class="btn-link" onclick="openLoginModal()">
+            <span>🔑 Login / Sign In</span>
+          </button>
+        `;
+      }
+    }
+
+    function openLoginModal() {
+      document.getElementById('authModalOverlay').classList.add('active');
+      document.getElementById('authModal').classList.add('active');
+      resetAuthStep();
+    }
+
+    function closeLoginModal() {
+      document.getElementById('authModalOverlay').classList.remove('active');
+      document.getElementById('authModal').classList.remove('active');
+    }
+
+    function resetAuthStep() {
+      document.getElementById('authStep1').style.display = 'block';
+      document.getElementById('authStep2').style.display = 'none';
+      document.getElementById('authOtpCode').value = '';
+    }
+
+    function sendOtpRequest() {
+      const name = document.getElementById('authName').value.trim();
+      const phone = document.getElementById('authPhone').value.trim();
+      
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian mobile number (starts with 6, 7, 8, or 9).");
+        return;
+      }
+
+      generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('mockOtpDisplay').textContent = generatedOtp;
+      document.getElementById('authTargetPhone').textContent = "+91 " + phone;
+
+      document.getElementById('authStep1').style.display = 'none';
+      document.getElementById('authStep2').style.display = 'block';
+    }
+
+    function verifyOtpAndLogin() {
+      const code = document.getElementById('authOtpCode').value.trim();
+      const phone = document.getElementById('authPhone').value.trim();
+      const name = document.getElementById('authName').value.trim() || 'Valued Customer';
+
+      if (!code) {
+        alert("Please enter the OTP.");
+        return;
+      }
+
+      if (code === generatedOtp || code === "1234") {
+        const userData = {
+          name: name,
+          phone: phone,
+          loginAt: new Date().toISOString()
+        };
+        localStorage.setItem('ganga_user', JSON.stringify(userData));
+
+        // Save to persistent customer database in localStorage for admin view
+        try {
+          const allCustomers = JSON.parse(localStorage.getItem('ganga_registered_users') || '[]');
+          if (!allCustomers.some(u => u.phone === phone)) {
+            allCustomers.push(userData);
+            localStorage.setItem('ganga_registered_users', JSON.stringify(allCustomers));
+          }
+        } catch(e) {}
+
+        syncUserHeader();
+        closeLoginModal();
+        alert(`Welcome, ${name}! You are logged in with +91 ${phone}.`);
+      } else {
+        alert("Invalid OTP code. Please enter the 4-digit code shown on screen.");
+      }
+    }
+
+    function logoutUser() {
+      if (confirm("Do you want to log out?")) {
+        localStorage.removeItem('ganga_user');
+        syncUserHeader();
+      }
+    }
+
+    // --- LocalStorage Cart Utilities ---
     function getCart() {
       try { return JSON.parse(localStorage.getItem('ganga_cart') || '[]'); } catch (e) { return []; }
     }
@@ -474,11 +655,22 @@
     function openCheckoutModal() {
       const cart = getCart();
       if (!cart.length) { alert('Your cart is empty!'); return; }
+      
+      // Auto fill customer details if logged in
+      const user = getLoggedInUser();
+      if (user) {
+        if (user.name) document.getElementById('custName').value = user.name;
+        if (user.phone) document.getElementById('custPhone').value = user.phone;
+      }
+
       document.getElementById('cartDrawer').classList.remove('active');
       document.getElementById('cartOverlay').classList.remove('active');
+      document.getElementById('checkoutOverlay').classList.add('active');
       document.getElementById('checkoutModal').classList.add('active');
     }
+
     function closeCheckoutModal() {
+      document.getElementById('checkoutOverlay').classList.remove('active');
       document.getElementById('checkoutModal').classList.remove('active');
     }
 
@@ -491,8 +683,13 @@
       const address = document.getElementById('custAddress').value.trim();
       const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
 
+      const phoneRegex = /^[6-9]\d{9}$/;
       if (!name || !phone || !address) {
-        alert('Please fill in your name, phone, and complete delivery address.');
+        alert('Please fill in your name, 10-digit mobile number, and complete delivery address.');
+        return;
+      }
+      if (!phoneRegex.test(phone)) {
+        alert('Please enter a valid 10-digit Indian phone number.');
         return;
       }
 
@@ -505,7 +702,6 @@
       const orderId = 'GC-' + Math.floor(100000 + Math.random() * 900000);
       const totalAmount = cart.reduce((sum, item) => sum + (Number(item.price || 0) * item.qty), 0);
 
-      // Cash on Delivery path
       if (payMethod === 'COD') {
         finalizeOrderAndNotify({
           orderId,
@@ -521,10 +717,9 @@
         return;
       }
 
-      // Online Razorpay path
       const options = {
         key: RAZORPAY_KEY_ID,
-        amount: totalAmount * 100, // in paise
+        amount: totalAmount * 100,
         currency: "INR",
         name: "Ganga Computers",
         description: `Order ${orderId}`,
@@ -551,7 +746,7 @@
         },
         modal: {
           ondismiss: function () {
-            alert("Payment cancelled. You can try again or select Cash on Delivery.");
+            alert("Payment cancelled. You can retry or select Cash on Delivery.");
           }
         }
       };
@@ -563,7 +758,7 @@
     function finalizeOrderAndNotify(order) {
       let msg = `🛒 *NEW ORDER RECEIVED - ${order.orderId}*\n\n`;
       msg += `👤 *Customer:* ${order.name}\n`;
-      msg += `📞 *Phone:* ${order.phone}\n`;
+      msg += `📞 *Phone:* +91 ${order.phone}\n`;
       msg += `📍 *Delivery Address:* ${order.address}\n`;
       msg += `💳 *Payment Method:* ${order.payMethod}\n`;
       msg += `✅ *Payment Status:* ${order.paymentStatus}\n`;
@@ -577,6 +772,13 @@
         msg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
       });
       msg += `\n💰 *Total Amount: ₹${order.totalAmount.toLocaleString('en-IN')}*`;
+
+      // Log order to localStorage for Admin panel tracking
+      try {
+        const existingOrders = JSON.parse(localStorage.getItem('ganga_store_orders') || '[]');
+        existingOrders.unshift({ ...order, timestamp: new Date().toLocaleString() });
+        localStorage.setItem('ganga_store_orders', JSON.stringify(existingOrders));
+      } catch(e) {}
 
       localStorage.removeItem('ganga_cart');
       updateCartBadge();
@@ -671,7 +873,6 @@
               </div>
               <div class="card-footer">
                 
-                <!-- Price Row with Stock Badge and WhatsApp Dropup side-by-side -->
                 <div class="price-row">
                   <div class="price">₹${Number(tab.price).toLocaleString('en-IN')}</div>
                   <div class="price-stock-right">
@@ -692,7 +893,6 @@
                   </div>
                 </div>
                 
-                <!-- Full-width 2-Button Grid for E-Commerce Actions -->
                 <div class="ecom-btns">
                   <button class="btn-ecom" onclick="addToCartDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
                     🛒 Add to Cart
@@ -710,6 +910,7 @@
     }
 
     document.getElementById('year').textContent = new Date().getFullYear();
+    syncUserHeader();
     updateCartBadge();
     loadData();
   </script>

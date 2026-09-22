@@ -2,425 +2,503 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ganga Computers | Admin Login & Stock Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Ganga Computers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --primary: #2563eb; --bg: #0b0f19; --surface: #111827; --border: rgba(255,255,255,0.1); --text: #f8fafc; }
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-card: #162032;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 1200px; margin: 0 auto; }
     
-    .login-wrapper {
-      max-width: 380px;
-      margin: 80px auto;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 30px 24px;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .login-wrapper h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 6px; text-align: center; }
-    .login-wrapper p { font-size: 0.82rem; color: #94a3b8; text-align: center; margin-bottom: 20px; }
-    .login-group { margin-bottom: 14px; }
-    .login-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 5px; }
-    .login-group input { width: 100%; padding: 10px 12px; background: #0b0f19; border: 1px solid var(--border); color: white; border-radius: 8px; outline: none; font-size: 0.9rem; }
-    .login-group input:focus { border-color: var(--primary); }
-    .btn-login { width: 100%; background: var(--primary); color: white; border: none; padding: 11px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; font-size: 0.9rem; }
-    .btn-login:hover { background: #1d4ed8; }
-    .login-error { color: #ef4444; font-size: 0.8rem; text-align: center; margin-top: 10px; display: none; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    h1 { font-size: 1.4rem; font-weight: 800; }
+    .header-links { display: flex; gap: 12px; align-items: center; }
+    .nav-btn { background: rgba(255,255,255,0.06); color: #38bdf8; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; border: 1px solid var(--border); }
+    .nav-btn:hover { background: rgba(255,255,255,0.12); }
 
-    #adminContent { display: none; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .header-btns { display: flex; gap: 10px; align-items: center; }
-    .btn-export { background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    .btn-logout { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-muted); padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.82rem; }
+    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .panel { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .panel.active { display: block; }
+
+    .banner-control-box { background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .banner-control-box input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: #fff; padding: 9px 12px; border-radius: 6px; outline: none; font-size: 0.88rem; }
+
+    .actions-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .action-btn { background: #1e293b; color: #fff; border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+    .action-btn:hover { background: #334155; }
+    .btn-green { background: #16a34a; border-color: #16a34a; }
+    .btn-green:hover { background: #15803d; }
+    .btn-red { background: #dc2626; border-color: #dc2626; }
+    .btn-red:hover { background: #b91c1c; }
+    .btn-sm { padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    th { color: var(--text-muted); font-weight: 700; background: rgba(255,255,255,0.02); }
     
-    /* Special Offer Admin Box */
-    .offer-box {
-      background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(185, 28, 28, 0.05));
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-    }
-    .offer-box h4 {
-      color: #f87171;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .offer-input-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .offer-input-group input {
-      flex: 1;
-      padding: 9px 12px;
-      background: #0b0f19;
-      border: 1px solid var(--border);
-      color: white;
-      border-radius: 6px;
-      outline: none;
-      font-size: 0.88rem;
-    }
-    .btn-save-offer {
-      background: #dc2626;
-      color: white;
-      border: none;
-      padding: 9px 16px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .btn-clear-offer {
-      background: rgba(255, 255, 255, 0.08);
-      color: #94a3b8;
-      border: 1px solid var(--border);
-      padding: 9px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+    .table-input { background: #0b0f19; border: 1px solid var(--border); color: white; padding: 6px 8px; border-radius: 6px; outline: none; font-size: 0.82rem; width: 100%; }
+    .table-input:focus { border-color: #38bdf8; }
+    .table-input-sm { width: 70px; text-align: center; }
 
-    .form-box { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 28px; }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .three-col { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 4px; }
-    .form-group input, .form-group select { width: 100%; padding: 9px 12px; background: #0b0f19; border: 1px solid var(--border); color: white; border-radius: 6px; outline: none; }
-    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    .badge { padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; }
+    .badge-paid { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .badge-cod { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 
-    table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 10px; overflow: hidden; }
-    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
-    th { background: #162032; color: #94a3b8; }
-    .btn-del { background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
-    .btn-edit { background: #0284c7; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-right: 4px; }
-    .qty-badge { background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 2px 7px; border-radius: 4px; font-weight: 700; }
+    /* Modal Overlays */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 99; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 540px; width: 100%; padding: 22px; max-height: 90vh; overflow-y: auto; }
+    .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; outline: none; font-size: 0.85rem; }
+
+    /* Order Breakdown Details */
+    .order-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 14px; font-size: 0.82rem; }
+    .order-info-item span { display: block; color: var(--text-muted); font-size: 0.72rem; }
+    .order-items-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+    .order-item-row { display: flex; justify-content: space-between; align-items: center; background: #0b0f19; padding: 8px 10px; border-radius: 6px; font-size: 0.8rem; }
   </style>
 </head>
 <body>
 
-  <div class="login-wrapper" id="loginWrapper">
-    <h2>Ganga Computers</h2>
-    <p>Admin Stock Control Portal</p>
-    
-    <form onsubmit="handleLogin(event)">
-      <div class="login-group">
-        <label>User ID</label>
-        <input type="text" id="usernameInput" placeholder="Enter User ID" required autocomplete="username" />
+  <div class="container">
+    <header>
+      <div>
+        <h1>Ganga Computers • Store Admin</h1>
+        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Flash Offers, Customer Orders & Accounts</p>
       </div>
-      <div class="login-group">
-        <label>Password</label>
-        <input type="password" id="passwordInput" placeholder="Enter Password" required autocomplete="current-password" />
+      <div class="header-links">
+        <a href="index.html" class="nav-btn">🛒 View Storefront</a>
       </div>
-      <button type="submit" class="btn-login">Login to Dashboard</button>
-      <div class="login-error" id="loginError">Invalid User ID or Password</div>
-    </form>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('ordersTab', this)">📋 Customer Orders</button>
+      <button class="tab-btn" onclick="showTab('stockTab', this)">📦 Stock & Inventory</button>
+      <button class="tab-btn" onclick="showTab('usersTab', this)">👥 Registered Mobile Users</button>
+    </div>
+
+    <!-- 1. Customer Orders Tab -->
+    <div id="ordersTab" class="panel active">
+      <div class="actions-bar">
+        <h3>Customer Orders Received</h3>
+        <button class="action-btn btn-red" onclick="clearOrders()">Clear All Orders</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date / Time</th>
+              <th>Customer</th>
+              <th>Mobile (+91)</th>
+              <th>Total Amount</th>
+              <th>Payment Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. Stock & Inventory Management Tab -->
+    <div id="stockTab" class="panel">
+      <!-- Special Offer Banner Control -->
+      <div class="banner-control-box">
+        <label style="font-size:0.78rem; font-weight:700; color:#38bdf8;">⚡ Top Scrolling Announcement Banner:</label>
+        <input type="text" id="specialOfferInput" placeholder="Leave blank to hide, or enter promotional text (e.g., Festive Offer: Extra ₹500 Off!)" />
+      </div>
+
+      <div class="actions-bar">
+        <div style="display:flex; gap:8px;">
+          <button class="action-btn" onclick="openAddModal()">➕ Add New Device</button>
+          <button class="action-btn btn-green" onclick="downloadUpdatedStockJson()">💾 Download Updated stock.json</button>
+        </div>
+        <span id="stockStatusText" style="font-size:0.78rem; color:#94a3b8;"></span>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">Img</th>
+              <th>Product Title</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th style="width: 110px;">Price (₹)</th>
+              <th style="width: 80px;">Qty</th>
+              <th>Extra Highlight</th>
+              <th style="width: 60px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. Registered Customers Tab -->
+    <div id="usersTab" class="panel">
+      <div class="actions-bar">
+        <h3>Registered Customers via Indian Mobile (+91)</h3>
+        <button class="action-btn btn-red" onclick="clearUsers()">Clear Users</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer Name</th>
+              <th>Mobile Number</th>
+              <th>Signed Up On</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <div class="container" id="adminContent">
-    <div class="header">
-      <div>
-        <h2>Ganga Computers Stock Manager</h2>
-        <p style="color:#94a3b8;font-size:0.85rem;">Add/Edit items below, then click "Export stock.json"</p>
+  <!-- Order Detailed View Modal -->
+  <div id="orderDetailModal" class="modal-overlay">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-weight:800;" id="modalOrderIdTitle">Order Details</h3>
+        <button onclick="closeOrderDetailModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">✕</button>
       </div>
-      <div class="header-btns">
-        <button class="btn-export" onclick="exportJSON()">📥 Export stock.json</button>
-        <button class="btn-logout" onclick="handleLogout()">Logout</button>
+
+      <div class="order-info-grid">
+        <div class="order-info-item">
+          <span>Customer Name</span>
+          <strong id="modalCustName"></strong>
+        </div>
+        <div class="order-info-item">
+          <span>Mobile Number</span>
+          <strong id="modalCustPhone"></strong>
+        </div>
+        <div class="order-info-item">
+          <span>Payment Mode</span>
+          <strong id="modalPayMethod"></strong>
+        </div>
+        <div class="order-info-item">
+          <span>Status</span>
+          <span id="modalPayStatusBadge" class="badge"></span>
+        </div>
+        <div class="order-info-item" style="grid-column: 1 / -1;">
+          <span>Razorpay Reference</span>
+          <code id="modalPaymentRef" style="color:#38bdf8;"></code>
+        </div>
+        <div class="order-info-item" style="grid-column: 1 / -1;">
+          <span>Delivery Address</span>
+          <p id="modalCustAddress" style="color:#e2e8f0; margin-top:2px; font-size:0.8rem;"></p>
+        </div>
+      </div>
+
+      <h4 style="font-size:0.85rem; margin-bottom:6px;">Items Purchased:</h4>
+      <div class="order-items-list" id="modalItemsList"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; margin-top:10px;">
+        <strong>Total Order Value:</strong>
+        <strong id="modalOrderTotal" style="font-size:1.1rem; color:#fff;"></strong>
       </div>
     </div>
+  </div>
 
-    <!-- Special Offer Flashing Bar Setting -->
-    <div class="offer-box">
-      <h4>⚡ Top Special Offer Flashing Banner</h4>
-      <p style="font-size:0.78rem; color:#cbd5e1;">Leave empty if there are no ongoing offers.</p>
-      <div class="offer-input-group">
-        <input type="text" id="specialOfferInput" placeholder="e.g. 🔥 MEGA SALE: Flat ₹500 OFF on all Tablets this week! Valid till Sunday!" />
-        <button type="button" class="btn-save-offer" onclick="updateOffer()">Set Flash Offer</button>
-        <button type="button" class="btn-clear-offer" onclick="clearOffer()">Clear</button>
+  <!-- Modal for Adding New Device -->
+  <div id="addModal" class="modal-overlay">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-weight:800;">Add New Device</h3>
+        <button onclick="closeAddModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <input type="text" id="newTitle" class="modal-input" placeholder="Title (e.g. Apple iPad 6th Gen)" required />
+      
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <input type="text" id="newBrand" class="modal-input" placeholder="Brand (Apple, Samsung, Lenovo)" required />
+        <select id="newCategory" class="modal-input" style="cursor:pointer;">
+          <option value="Tablet">Tablet</option>
+          <option value="Laptop">Laptop</option>
+        </select>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <input type="number" id="newPrice" class="modal-input" placeholder="Price (₹)" required />
+        <input type="number" id="newQty" class="modal-input" placeholder="Quantity Available" value="1" required />
+      </div>
+
+      <input type="text" id="newExtra" class="modal-input" placeholder="Special Feature (e.g. Apple Pencil Supported, S-Pen)" />
+      <input type="text" id="newSpecs" class="modal-input" placeholder="Specs comma-separated (e.g. 32 GB, 9.7 inch, Retina)" />
+      <input type="text" id="newImage" class="modal-input" placeholder="Image URL (Unsplash or direct image URL)" />
+
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="action-btn" onclick="closeAddModal()" style="flex:1;">Cancel</button>
+        <button class="action-btn btn-green" onclick="addNewProduct()" style="flex:1;">Add Product</button>
       </div>
     </div>
-
-    <div class="form-box">
-      <h3 id="formTitle" style="margin-bottom:12px;">Add Device</h3>
-      <form id="stockForm" onsubmit="saveItem(event)">
-        <input type="hidden" id="itemId" value="" />
-
-        <div class="two-col">
-          <div class="form-group">
-            <label>Device Category</label>
-            <select id="category">
-              <option value="Tablet">Tablet / iPad</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Computer">Desktop PC</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Brand</label>
-            <select id="brand">
-              <option value="Samsung">Samsung</option>
-              <option value="Lenovo">Lenovo</option>
-              <option value="Apple">Apple</option>
-              <option value="Dell">Dell</option>
-              <option value="HP">HP</option>
-              <option value="Asus">Asus</option>
-              <option value="Acer">Acer</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="three-col">
-          <div class="form-group">
-            <label>Model Name</label>
-            <input type="text" id="title" placeholder="e.g. Dell Latitude 7490 i5" required />
-          </div>
-          <div class="form-group">
-            <label>Selling Price (₹)</label>
-            <input type="number" id="price" placeholder="18500" required />
-          </div>
-          <div class="form-group">
-            <label>Available Qty</label>
-            <input type="number" id="qty" placeholder="1" min="0" value="1" required />
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="form-group">
-            <label>Condition</label>
-            <select id="condition">
-              <option value="Like New">Like New</option>
-              <option value="Excellent">Excellent</option>
-              <option value="Good">Good</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Accessories / Extra Note (Optional)</label>
-            <input type="text" id="extra" placeholder="e.g. Pouch & glass ₹350 extra" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Specifications (Comma separated)</label>
-          <input type="text" id="specs" placeholder="8GB RAM, 256GB SSD, Core i5, 14 inch" required />
-        </div>
-
-        <div class="form-group">
-          <label>Upload Photo (Optional)</label>
-          <input type="file" id="file" accept="image/*" onchange="encodeImg(event)" style="margin-bottom:6px;" />
-          <input type="text" id="image" placeholder="Or paste image URL" />
-        </div>
-
-        <button type="submit" id="submitBtn" class="btn-submit">Add to Stock List</button>
-      </form>
-    </div>
-
-    <h3>Current Stock (<span id="count">0</span> items)</h3>
-    <table style="margin-top:10px;">
-      <thead>
-        <tr>
-          <th>Model</th>
-          <th>Type</th>
-          <th>Price</th>
-          <th>Available Qty</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
   </div>
 
   <script>
-    const AUTH_USER = "admin";
-    const AUTH_PASS = "admin123";
-
-    function checkExistingAuth() {
-      if (sessionStorage.getItem("ganga_admin_auth") === "true") {
-        document.getElementById("loginWrapper").style.display = "none";
-        document.getElementById("adminContent").style.display = "block";
-        initStock();
-      }
-    }
-
-    function handleLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById("usernameInput").value.trim();
-      const pass = document.getElementById("passwordInput").value.trim();
-      const err = document.getElementById("loginError");
-
-      if (user === AUTH_USER && pass === AUTH_PASS) {
-        sessionStorage.setItem("ganga_admin_auth", "true");
-        err.style.display = "none";
-        document.getElementById("loginWrapper").style.display = "none";
-        document.getElementById("adminContent").style.display = "block";
-        initStock();
-      } else {
-        err.style.display = "block";
-      }
-    }
-
-    function handleLogout() {
-      sessionStorage.removeItem("ganga_admin_auth");
-      document.getElementById("adminContent").style.display = "none";
-      document.getElementById("loginWrapper").style.display = "block";
-      document.getElementById("usernameInput").value = "";
-      document.getElementById("passwordInput").value = "";
-      document.getElementById("loginError").style.display = "none";
-    }
-
     let stockData = {
       specialOffer: "",
       items: []
     };
+    let currentOrders = [];
 
-    function initStock() {
-      fetch('stock.json?t=' + Date.now())
-        .then(res => res.json())
-        .then(data => {
-          if (Array.isArray(data)) {
-            stockData.items = data;
-            stockData.specialOffer = "";
-          } else if (data && typeof data === 'object') {
-            stockData.items = Array.isArray(data.items) ? data.items : [];
-            stockData.specialOffer = data.specialOffer || "";
-          }
-          document.getElementById('specialOfferInput').value = stockData.specialOffer;
-          render();
-        })
-        .catch(() => {
-          stockData = { specialOffer: "", items: [] };
-          render();
-        });
+    function showTab(id, btn) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
     }
 
-    function updateOffer() {
-      stockData.specialOffer = document.getElementById('specialOfferInput').value.trim();
-      alert(stockData.specialOffer ? "Offer set! Click 'Export stock.json' to publish." : "Offer cleared!");
-    }
-
-    function clearOffer() {
-      document.getElementById('specialOfferInput').value = "";
-      stockData.specialOffer = "";
-      alert("Offer removed. Remember to click 'Export stock.json'.");
-    }
-
-    function render() {
-      document.getElementById('count').textContent = stockData.items.length;
-      const tbody = document.getElementById('tableBody');
-      if (!stockData.items.length) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">No items in stock.</td></tr>';
+    // --- Order Information & Modal Handling ---
+    function renderOrders() {
+      currentOrders = JSON.parse(localStorage.getItem('ganga_store_orders') || '[]');
+      const tbody = document.getElementById('ordersBody');
+      if (!currentOrders.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:30px;">No recorded orders yet.</td></tr>';
         return;
       }
-      tbody.innerHTML = stockData.items.map((item, idx) => `
+      tbody.innerHTML = currentOrders.map((o, idx) => `
         <tr>
-          <td><strong>${item.title}</strong><br><small style="color:#94a3b8;">${item.brand}</small></td>
-          <td>${item.category || 'Tablet'}</td>
-          <td>₹${Number(item.price).toLocaleString('en-IN')}</td>
-          <td><span class="qty-badge">${item.qty !== undefined ? item.qty : 1} in stock</span></td>
+          <td><strong>${o.orderId}</strong></td>
+          <td style="color:#94a3b8;">${o.timestamp || 'Recent'}</td>
+          <td>${o.name}</td>
+          <td>+91 ${o.phone}</td>
+          <td>₹${Number(o.totalAmount).toLocaleString('en-IN')}</td>
+          <td><span class="badge ${o.paymentStatus === 'PAID' ? 'badge-paid' : 'badge-cod'}">${o.paymentStatus}</span></td>
           <td>
-            <button class="btn-edit" onclick="editItem(${idx})">Edit</button>
-            <button class="btn-del" onclick="deleteItem(${idx})">Delete</button>
+            <button class="action-btn btn-sm" onclick="viewOrderDetails(${idx})">👁 View Details</button>
           </td>
         </tr>
       `).join('');
     }
 
-    function encodeImg(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const img = new Image();
-        img.src = evt.target.result;
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 600;
-          const scale = MAX_WIDTH / img.width;
-          canvas.width = (img.width > MAX_WIDTH) ? MAX_WIDTH : img.width;
-          canvas.height = (img.width > MAX_WIDTH) ? (img.height * scale) : img.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          document.getElementById('image').value = canvas.toDataURL('image/jpeg', 0.8);
-        };
-      };
-      reader.readAsDataURL(file);
-    }
+    function viewOrderDetails(idx) {
+      const order = currentOrders[idx];
+      if (!order) return;
 
-    function saveItem(e) {
-      e.preventDefault();
-      const idVal = document.getElementById('itemId').value;
-      const item = {
-        id: idVal ? Number(idVal) : Date.now(),
-        category: document.getElementById('category').value,
-        brand: document.getElementById('brand').value,
-        title: document.getElementById('title').value.trim(),
-        price: Number(document.getElementById('price').value),
-        qty: Number(document.getElementById('qty').value) || 0,
-        condition: document.getElementById('condition').value,
-        extra: document.getElementById('extra').value.trim() || null,
-        specs: document.getElementById('specs').value.split(',').map(s => s.trim()).filter(Boolean),
-        image: document.getElementById('image').value || "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
-      };
+      document.getElementById('modalOrderIdTitle').textContent = `Order Details: ${order.orderId}`;
+      document.getElementById('modalCustName').textContent = order.name;
+      document.getElementById('modalCustPhone').textContent = "+91 " + order.phone;
+      document.getElementById('modalPayMethod').textContent = order.payMethod || 'N/A';
+      document.getElementById('modalCustAddress').textContent = order.address || 'Address not recorded';
+      document.getElementById('modalPaymentRef').textContent = order.paymentId || 'N/A';
 
-      if (idVal) {
-        const index = stockData.items.findIndex(i => i.id == idVal);
-        if (index !== -1) stockData.items[index] = item;
+      const statusBadge = document.getElementById('modalPayStatusBadge');
+      statusBadge.textContent = order.paymentStatus;
+      statusBadge.className = `badge ${order.paymentStatus === 'PAID' ? 'badge-paid' : 'badge-cod'}`;
+
+      const itemsList = document.getElementById('modalItemsList');
+      if (order.cart && order.cart.length) {
+        itemsList.innerHTML = order.cart.map(item => `
+          <div class="order-item-row">
+            <div>
+              <strong>${item.title}</strong>
+              <div style="font-size:0.72rem; color:#94a3b8;">₹${Number(item.price).toLocaleString('en-IN')} × ${item.qty}</div>
+            </div>
+            <strong>₹${(Number(item.price) * (item.qty || 1)).toLocaleString('en-IN')}</strong>
+          </div>
+        `).join('');
       } else {
-        stockData.items.unshift(item);
+        itemsList.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem;">Item specifications not recorded.</div>';
       }
 
-      resetForm();
-      render();
+      document.getElementById('modalOrderTotal').textContent = `₹${Number(order.totalAmount).toLocaleString('en-IN')}`;
+      document.getElementById('orderDetailModal').classList.add('active');
     }
 
-    function editItem(idx) {
-      const item = stockData.items[idx];
-      document.getElementById('itemId').value = item.id;
-      document.getElementById('category').value = item.category || 'Tablet';
-      document.getElementById('brand').value = item.brand;
-      document.getElementById('title').value = item.title;
-      document.getElementById('price').value = item.price;
-      document.getElementById('qty').value = item.qty !== undefined ? item.qty : 1;
-      document.getElementById('condition').value = item.condition;
-      document.getElementById('extra').value = item.extra || '';
-      document.getElementById('specs').value = (item.specs || []).join(', ');
-      document.getElementById('image').value = item.image || '';
-
-      document.getElementById('formTitle').textContent = "Edit Device";
-      document.getElementById('submitBtn').textContent = "Update Device";
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function closeOrderDetailModal() {
+      document.getElementById('orderDetailModal').classList.remove('active');
     }
 
-    function deleteItem(idx) {
-      if (confirm(`Delete "${stockData.items[idx].title}"?`)) {
+    function clearOrders() {
+      if (confirm("Are you sure you want to clear all stored order logs?")) {
+        localStorage.removeItem('ganga_store_orders');
+        renderOrders();
+      }
+    }
+
+    // --- Stock Inventory Management ---
+    function loadStock() {
+      fetch('stock.json?t=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            stockData = { specialOffer: "", items: data };
+          } else if (data && typeof data === 'object') {
+            stockData = {
+              specialOffer: data.specialOffer || "",
+              items: Array.isArray(data.items) ? data.items : []
+            };
+          }
+          document.getElementById('specialOfferInput').value = stockData.specialOffer;
+          renderStockTable();
+        })
+        .catch(err => {
+          console.error("Failed to load stock:", err);
+          document.getElementById('stockStatusText').textContent = "⚠️ Could not load stock.json automatically. Run through local python server.";
+        });
+    }
+
+    function renderStockTable() {
+      const tbody = document.getElementById('stockTableBody');
+      if (!stockData.items.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#94a3b8; padding:30px;">No items in stock.json.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = stockData.items.map((item, idx) => `
+        <tr>
+          <td>
+            <img src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" style="width:36px; height:36px; object-fit:cover; border-radius:6px;" alt="Device" />
+          </td>
+          <td>
+            <input type="text" class="table-input" value="${item.title || ''}" onchange="updateItemField(${idx}, 'title', this.value)" />
+          </td>
+          <td>
+            <input type="text" class="table-input" style="width:90px;" value="${item.brand || ''}" onchange="updateItemField(${idx}, 'brand', this.value)" />
+          </td>
+          <td>
+            <select class="table-input" style="width:90px;" onchange="updateItemField(${idx}, 'category', this.value)">
+              <option value="Tablet" ${item.category === 'Tablet' ? 'selected' : ''}>Tablet</option>
+              <option value="Laptop" ${item.category === 'Laptop' ? 'selected' : ''}>Laptop</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" class="table-input" value="${item.price || 0}" onchange="updateItemField(${idx}, 'price', Number(this.value))" />
+          </td>
+          <td>
+            <input type="number" class="table-input table-input-sm" value="${item.qty !== undefined ? item.qty : 1}" onchange="updateItemField(${idx}, 'qty', Number(this.value))" />
+          </td>
+          <td>
+            <input type="text" class="table-input" value="${item.extra || ''}" placeholder="Highlight text" onchange="updateItemField(${idx}, 'extra', this.value)" />
+          </td>
+          <td>
+            <button onclick="deleteProduct(${idx})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:1.1rem;" title="Delete Device">🗑</button>
+          </td>
+        </tr>
+      `).join('');
+
+      document.getElementById('stockStatusText').textContent = `Total Devices: ${stockData.items.length}`;
+    }
+
+    function updateItemField(idx, field, value) {
+      if (stockData.items[idx]) {
+        stockData.items[idx][field] = value;
+      }
+    }
+
+    function deleteProduct(idx) {
+      if (confirm(`Remove "${stockData.items[idx].title}" from inventory?`)) {
         stockData.items.splice(idx, 1);
-        render();
+        renderStockTable();
       }
     }
 
-    function resetForm() {
-      document.getElementById('stockForm').reset();
-      document.getElementById('itemId').value = "";
-      document.getElementById('qty').value = "1";
-      document.getElementById('formTitle').textContent = "Add Device";
-      document.getElementById('submitBtn').textContent = "Add to Stock List";
+    function openAddModal() {
+      document.getElementById('addModal').classList.add('active');
+    }
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('active');
     }
 
-    function exportJSON() {
+    function addNewProduct() {
+      const title = document.getElementById('newTitle').value.trim();
+      const brand = document.getElementById('newBrand').value.trim();
+      const category = document.getElementById('newCategory').value;
+      const price = Number(document.getElementById('newPrice').value);
+      const qty = Number(document.getElementById('newQty').value) || 1;
+      const extra = document.getElementById('newExtra').value.trim();
+      const rawSpecs = document.getElementById('newSpecs').value.trim();
+      const image = document.getElementById('newImage').value.trim() || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600';
+
+      if (!title || !brand || !price) {
+        alert("Please enter title, brand, and price.");
+        return;
+      }
+
+      const specs = rawSpecs ? rawSpecs.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+      stockData.items.unshift({
+        title,
+        brand,
+        category,
+        price,
+        qty,
+        extra,
+        specs,
+        image
+      });
+
+      renderStockTable();
+      closeAddModal();
+
+      document.getElementById('newTitle').value = '';
+      document.getElementById('newBrand').value = '';
+      document.getElementById('newPrice').value = '';
+      document.getElementById('newQty').value = '1';
+      document.getElementById('newExtra').value = '';
+      document.getElementById('newSpecs').value = '';
+      document.getElementById('newImage').value = '';
+    }
+
+    function downloadUpdatedStockJson() {
       stockData.specialOffer = document.getElementById('specialOfferInput').value.trim();
-      const blob = new Blob([JSON.stringify(stockData, null, 2)], { type: 'application/json' });
+      const jsonStr = JSON.stringify(stockData, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
+      a.href = url;
       a.download = 'stock.json';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert("✅ Downloaded 'stock.json'. Move this file into your project folder to update the storefront.");
     }
 
-    checkExistingAuth();
+    // --- Registered Customer Accounts ---
+    function renderUsers() {
+      const users = JSON.parse(localStorage.getItem('ganga_registered_users') || '[]');
+      const tbody = document.getElementById('usersBody');
+      if (!users.length) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding:30px;">No customers registered yet.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = users.map(u => `
+        <tr>
+          <td><strong>${u.name}</strong></td>
+          <td>+91 ${u.phone}</td>
+          <td style="color:#94a3b8;">${new Date(u.loginAt).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    }
+
+    function clearUsers() {
+      if (confirm("Are you sure you want to clear registered customer records?")) {
+        localStorage.removeItem('ganga_registered_users');
+        renderUsers();
+      }
+    }
+
+    // Initialize Dashboard
+    renderOrders();
+    loadStock();
+    renderUsers();
   </script>
 </body>
 </html>
