@@ -101,8 +101,8 @@
 
     /* Product Cards */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; }
-    .card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
-    .card-img-link { display: block; overflow: hidden; background: #0d1424; position: relative; cursor: pointer; }
+    .card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; overflow: visible; display: flex; flex-direction: column; }
+    .card-img-link { display: block; overflow: hidden; background: #0d1424; position: relative; cursor: pointer; border-radius: 14px 14px 0 0; }
     .card-img { width: 100%; height: 190px; object-fit: cover; transition: transform 0.3s ease; }
     .card-img-link:hover .card-img { transform: scale(1.04); }
     
@@ -124,22 +124,29 @@
     .low-stock { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
     .out-stock { background: rgba(239, 68, 68, 0.12); color: #f87171; }
     
-    /* E-Commerce Buttons */
-    .ecom-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+    /* 1-Row Action Button Group */
+    .action-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+
     .btn-ecom {
+      flex: 1;
       min-height: 38px;
-      padding: 6px 8px;
+      padding: 6px 4px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
       border: none;
       transition: opacity 0.2s ease, transform 0.1s ease;
-      text-decoration: none;
+      white-space: nowrap;
     }
     .btn-ecom:active { transform: scale(0.98); }
     .btn-cart { background: #1e293b; color: #f8fafc; border: 1px solid #3b82f6; }
@@ -147,28 +154,76 @@
     .btn-buy { background: #ea580c; color: #fff; }
     .btn-buy:hover { background: #c2410c; }
 
-    /* WhatsApp Branch Buttons */
-    .wa-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-    .wa-btn { 
-      background: #16a34a; 
-      color: white; 
-      text-decoration: none; 
-      min-height: 34px;
-      padding: 4px 6px; 
-      border-radius: 8px; 
-      font-size: 0.74rem; 
-      font-weight: 600; 
-      display: inline-flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: 5px;
-      transition: opacity 0.2s ease, transform 0.1s ease;
-      white-space: nowrap;
+    /* WhatsApp Dropup Elements */
+    .wa-dropdown {
+      position: relative;
+      display: inline-block;
     }
-    .wa-btn:hover { opacity: 0.9; }
-    .wa-btn:active { transform: scale(0.98); }
-    .wa-btn.anakapalli { background: #0284c7; }
-    .wa-btn svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+    .wa-trigger-btn {
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      width: 38px;
+      min-width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+    .wa-trigger-btn:hover { background: #15803d; }
+    .wa-trigger-btn:active { transform: scale(0.96); }
+    .wa-trigger-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .wa-menu {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 145px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 50;
+    }
+
+    /* Pop out on hover or focus */
+    .wa-dropdown:hover .wa-menu,
+    .wa-dropdown:focus-within .wa-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .wa-branch-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .wa-branch-link.anakapalli { background: rgba(2, 132, 199, 0.22); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }
+    .wa-branch-link.anakapalli:hover { background: #0284c7; color: #fff; }
+    .wa-branch-link.hyderabad { background: rgba(22, 163, 74, 0.22); color: #4ade80; border: 1px solid rgba(22, 163, 74, 0.4); }
+    .wa-branch-link.hyderabad:hover { background: #16a34a; color: #fff; }
+    .wa-branch-link svg { width: 14px; height: 14px; fill: currentColor; }
 
     /* Slide-in Cart */
     .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
@@ -287,7 +342,7 @@
     </div>
   </div>
 
-<!-- Checkout Modal -->
+  <!-- Checkout Modal -->
   <div id="checkoutModal" class="checkout-modal-overlay">
     <div class="checkout-modal">
       <h3 style="margin-bottom:12px;">Shipping Details</h3>
@@ -412,114 +467,110 @@
       document.getElementById('checkoutModal').classList.remove('active');
     }
 
-   
-const RAZORPAY_KEY_ID = "rzp_test_Tf5BggKsB65A3w";
-const ADMIN_WHATSAPP = "919599053593";
+    const RAZORPAY_KEY_ID = "rzp_test_Tf5BggKsB65A3w";
+    const ADMIN_WHATSAPP = "919599053593";
 
-function submitOrder() {
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+    function submitOrder() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
 
-  if (!name || !phone || !address) {
-    alert('Please fill in your name, phone, and complete delivery address.');
-    return;
-  }
-
-  const cart = getCart();
-  if (!cart.length) {
-    alert('Your cart is empty!');
-    return;
-  }
-
-  const orderId = 'GC-' + Math.floor(100000 + Math.random() * 900000);
-  const totalAmount = cart.reduce((sum, item) => sum + (Number(item.price || 0) * item.qty), 0);
-
-  // If Cash on Delivery, bypass online payment gateway
-  if (payMethod === 'COD') {
-    finalizeOrderAndNotify({
-      orderId,
-      name,
-      phone,
-      address,
-      payMethod: 'Cash on Delivery (COD)',
-      paymentStatus: 'Pending (Pay on Delivery)',
-      paymentId: 'N/A',
-      cart,
-      totalAmount
-    });
-    return;
-  }
-
-  // If Online (UPI / Cards / NetBanking), launch Razorpay Checkout modal
-  const options = {
-    key: RAZORPAY_KEY_ID,
-    amount: totalAmount * 100, // Amount in paise (e.g. ₹5,000 = 500000)
-    currency: "INR",
-    name: "Ganga Computers",
-    description: `Order ${orderId}`,
-    image: "https://gangacomputers.in/favicon.ico",
-    prefill: {
-      name: name,
-      contact: phone
-    },
-    theme: {
-      color: "#2563eb"
-    },
-    handler: function (response) {
-      // Payment Successful
-      finalizeOrderAndNotify({
-        orderId,
-        name,
-        phone,
-        address,
-        payMethod: 'Online (UPI/Cards/NetBanking)',
-        paymentStatus: 'PAID',
-        paymentId: response.razorpay_payment_id,
-        cart,
-        totalAmount
-      });
-    },
-    modal: {
-      ondismiss: function () {
-        alert("Payment cancelled. You can try again or select Cash on Delivery.");
+      if (!name || !phone || !address) {
+        alert('Please fill in your name, phone, and complete delivery address.');
+        return;
       }
+
+      const cart = getCart();
+      if (!cart.length) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      const orderId = 'GC-' + Math.floor(100000 + Math.random() * 900000);
+      const totalAmount = cart.reduce((sum, item) => sum + (Number(item.price || 0) * item.qty), 0);
+
+      // Cash on Delivery path
+      if (payMethod === 'COD') {
+        finalizeOrderAndNotify({
+          orderId,
+          name,
+          phone,
+          address,
+          payMethod: 'Cash on Delivery (COD)',
+          paymentStatus: 'Pending (Pay on Delivery)',
+          paymentId: 'N/A',
+          cart,
+          totalAmount
+        });
+        return;
+      }
+
+      // Online Razorpay path
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: totalAmount * 100, // in paise
+        currency: "INR",
+        name: "Ganga Computers",
+        description: `Order ${orderId}`,
+        image: "https://gangacomputers.in/favicon.ico",
+        prefill: {
+          name: name,
+          contact: phone
+        },
+        theme: {
+          color: "#2563eb"
+        },
+        handler: function (response) {
+          finalizeOrderAndNotify({
+            orderId,
+            name,
+            phone,
+            address,
+            payMethod: 'Online (UPI/Cards/NetBanking)',
+            paymentStatus: 'PAID',
+            paymentId: response.razorpay_payment_id,
+            cart,
+            totalAmount
+          });
+        },
+        modal: {
+          ondismiss: function () {
+            alert("Payment cancelled. You can try again or select Cash on Delivery.");
+          }
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
     }
-  };
 
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
+    function finalizeOrderAndNotify(order) {
+      let msg = `🛒 *NEW ORDER RECEIVED - ${order.orderId}*\n\n`;
+      msg += `👤 *Customer:* ${order.name}\n`;
+      msg += `📞 *Phone:* ${order.phone}\n`;
+      msg += `📍 *Delivery Address:* ${order.address}\n`;
+      msg += `💳 *Payment Method:* ${order.payMethod}\n`;
+      msg += `✅ *Payment Status:* ${order.paymentStatus}\n`;
+      if (order.paymentId !== 'N/A') {
+        msg += `🔖 *Razorpay Ref:* ${order.paymentId}\n`;
+      }
+      msg += `\n📦 *Items Ordered:*\n`;
 
-function finalizeOrderAndNotify(order) {
-  let msg = `🛒 *NEW ORDER RECEIVED - ${order.orderId}*\n\n`;
-  msg += `👤 *Customer:* ${order.name}\n`;
-  msg += `📞 *Phone:* ${order.phone}\n`;
-  msg += `📍 *Delivery Address:* ${order.address}\n`;
-  msg += `💳 *Payment Method:* ${order.payMethod}\n`;
-  msg += `✅ *Payment Status:* ${order.paymentStatus}\n`;
-  if (order.paymentId !== 'N/A') {
-    msg += `🔖 *Razorpay Ref:* ${order.paymentId}\n`;
-  }
-  msg += `\n📦 *Items Ordered:*\n`;
+      order.cart.forEach((item, i) => {
+        const sub = Number(item.price || 0) * item.qty;
+        msg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
+      });
+      msg += `\n💰 *Total Amount: ₹${order.totalAmount.toLocaleString('en-IN')}*`;
 
-  order.cart.forEach((item, i) => {
-    const sub = Number(item.price || 0) * item.qty;
-    msg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
-  });
-  msg += `\n💰 *Total Amount: ₹${order.totalAmount.toLocaleString('en-IN')}*`;
+      localStorage.removeItem('ganga_cart');
+      updateCartBadge();
+      closeCheckoutModal();
 
-  // Clear cart and close modal
-  localStorage.removeItem('ganga_cart');
-  updateCartBadge();
-  closeCheckoutModal();
+      alert(`Thank you, ${order.name}! Order ${order.orderId} placed (${order.paymentStatus}).`);
+      window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
 
-  alert(`Thank you, ${order.name}! Order ${order.orderId} recorded (${order.paymentStatus}).`);
-
-  // Forward receipt directly to Admin WhatsApp
-  window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
-}
     function loadData() {
       fetch('stock.json?t=' + Date.now(), { cache: 'no-store' })
       .then(res => res.json())
@@ -609,26 +660,28 @@ function finalizeOrderAndNotify(order) {
                   ${stockBadgeHtml}
                 </div>
                 
-                <!-- Direct E-Commerce Buy & Cart -->
-                <div class="ecom-btns">
+                <!-- Single Row: Add to Cart | Buy Now | Hoverable WhatsApp Dropup -->
+                <div class="action-row">
                   <button class="btn-ecom btn-cart" onclick="addToCartDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
-                    🛒 Add to Cart
+                    🛒 Add
                   </button>
                   <button class="btn-ecom btn-buy" onclick="buyNowDirect('${safeTitle}', ${Number(tab.price)}, '${safeImg}')">
                     ⚡ Buy Now
                   </button>
-                </div>
 
-                <!-- Instant Branch WhatsApp Inquiries -->
-                <div class="wa-btns">
-                  <a href="https://wa.me/${WHATSAPP_ANAKAPALLI}?text=${msgAnk}" target="_blank" class="wa-btn anakapalli">
-                    ${WA_SVG}
-                    <span>Anakapalli</span>
-                  </a>
-                  <a href="https://wa.me/${WHATSAPP_HYDERABAD}?text=${msgHyd}" target="_blank" class="wa-btn">
-                    ${WA_SVG}
-                    <span>Hyderabad</span>
-                  </a>
+                  <div class="wa-dropdown" tabindex="0">
+                    <button class="wa-trigger-btn" type="button" title="Chat on WhatsApp">
+                      ${WA_SVG}
+                    </button>
+                    <div class="wa-menu">
+                      <a href="https://wa.me/${WHATSAPP_ANAKAPALLI}?text=${msgAnk}" target="_blank" class="wa-branch-link anakapalli">
+                        ${WA_SVG} Anakapalli
+                      </a>
+                      <a href="https://wa.me/${WHATSAPP_HYDERABAD}?text=${msgHyd}" target="_blank" class="wa-branch-link hyderabad">
+                        ${WA_SVG} Hyderabad
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
               </div>
