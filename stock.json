@@ -2,20 +2,6 @@
   "specialOffer": "Flash 500 off on Samsung Galaxy A7 Lite now at 4999 only",
   "items": [
     {
-      "id": 1790082310701,
-      "category": "Tablet",
-      "brand": "Samsung",
-      "title": "Test",
-      "price": 5,
-      "qty": 1,
-      "condition": "Like New",
-      "extra": null,
-      "specs": [
-        "Test"
-      ],
-      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600"
-    },
-    {
       "id": 1,
       "category": "Tablet",
       "brand": "Apple",
