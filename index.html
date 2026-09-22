@@ -28,28 +28,59 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
     
+    /* Top Strip - Locked Side-by-Side on Mobile */
     .top-strip {
       background: rgba(17, 24, 39, 0.98);
       border-bottom: 1px solid var(--border);
-      padding: 8px 16px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      padding: 6px 10px;
       width: 100%;
     }
     .top-strip-inner {
       max-width: 1280px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 8px 16px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
-    .top-brand { color: var(--text); font-weight: 500; }
-    .top-strip-links { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .top-link { color: #38bdf8; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
-    .top-link svg { width: 12px; height: 12px; fill: currentColor; }
-    .sep { color: rgba(255, 255, 255, 0.25); }
+    .top-strip-inner::-webkit-scrollbar { display: none; }
+
+    .top-strip-links { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 6px; 
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .top-link { 
+      color: #38bdf8; 
+      text-decoration: none; 
+      font-weight: 700; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 3px; 
+      font-size: clamp(0.68rem, 2.5vw, 0.78rem);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .top-link svg { 
+      width: 11px; 
+      height: 11px; 
+      fill: currentColor; 
+      flex-shrink: 0; 
+    }
+    .top-strip-links .sep { 
+      color: rgba(255, 255, 255, 0.35); 
+      font-size: 0.72rem;
+      user-select: none;
+      padding: 0 1px;
+      flex-shrink: 0;
+    }
 
     /* Sticky Enlarged Top Navigation Header */
     header { 
@@ -73,7 +104,6 @@
       gap: 8px; 
     }
 
-    /* Change 2: Enlarged Ganga Computers Brand Header */
     .brand { 
       font-size: clamp(1.18rem, 4vw, 1.55rem); 
       font-weight: 800; 
@@ -111,7 +141,6 @@
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
     .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.7rem; font-weight: 800; }
 
-    /* Change 1: Locked Single-Line Mobile User Badge */
     .user-auth-badge {
       display: inline-flex;
       align-items: center;
@@ -331,18 +360,18 @@
 </head>
 <body>
 
+  <!-- Top Strip Locked Side-by-Side on Mobile -->
   <div class="top-strip">
     <div class="top-strip-inner">
-      <div class="top-brand">⚡ <strong>gangacomputers.in</strong></div>
       <div class="top-strip-links">
         <a href="tel:+919493495539" class="top-link">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>Anakapalli: +91 94934 95539</span>
+          <span>Anakapalli: 94934 95539</span>
         </a>
         <span class="sep">•</span>
         <a href="tel:+919599053593" class="top-link">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>Hyderabad: +91 95990 53593</span>
+          <span>Hyderabad: 95990 53593</span>
         </a>
       </div>
     </div>
@@ -521,7 +550,6 @@
       try { return JSON.parse(localStorage.getItem('ganga_user') || 'null'); } catch (e) { return null; }
     }
 
-    // Change 1 Implementation: Mobile-Friendly Compact Contact Badge
     function syncUserHeader() {
       const user = getLoggedInUser();
       const container = document.getElementById('userHeaderAuth');
