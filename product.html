@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
     :root {
@@ -231,7 +232,7 @@
     </div>
   </div>
 
-  <!-- Checkout Modal -->
+<!-- Checkout Modal -->
   <div id="checkoutModal" class="checkout-modal-overlay">
     <div class="checkout-modal">
       <h3 style="margin-bottom:12px;">Shipping Details</h3>
@@ -239,14 +240,21 @@
       <input type="tel" id="custPhone" class="modal-input" placeholder="Phone Number (10 digits)" required />
       <textarea id="custAddress" class="modal-input" rows="3" placeholder="Full Delivery Address with Pincode" required></textarea>
       
-      <div style="margin: 12px 0; font-size:0.85rem;">
-        <label><input type="radio" name="payMethod" value="COD" checked> Cash on Delivery</label> &nbsp;
-        <label><input type="radio" name="payMethod" value="UPI"> UPI / QR Code</label>
+      <!-- Payment Option Radios -->
+      <div style="margin: 14px 0; font-size:0.88rem; display:flex; flex-direction:column; gap:8px;">
+        <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <input type="radio" name="payMethod" value="ONLINE" checked> 
+          <span>💳 Pay Online (UPI, Credit/Debit Cards, NetBanking)</span>
+        </label>
+        <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <input type="radio" name="payMethod" value="COD"> 
+          <span>💵 Cash on Delivery (COD)</span>
+        </label>
       </div>
 
       <div style="display:flex; gap:8px;">
-        <button class="action-btn btn-add-cart" onclick="closeCheckoutModal()">Cancel</button>
-        <button class="action-btn btn-buy-now" onclick="submitOrder()">Place Order</button>
+        <button class="btn-ecom btn-cart" onclick="closeCheckoutModal()" style="flex:1;">Cancel</button>
+        <button class="btn-ecom btn-buy" onclick="submitOrder()" style="flex:1;">Place Order</button>
       </div>
     </div>
   </div>
@@ -351,11 +359,15 @@
       document.getElementById('checkoutModal').classList.remove('active');
     }
 
-    function submitOrder() {
+   
+  const RAZORPAY_KEY_ID = "rzp_test_Tf5BggKsB65A3w";
+  const ADMIN_WHATSAPP = "919599053593";
+
+function submitOrder() {
   const name = document.getElementById('custName').value.trim();
   const phone = document.getElementById('custPhone').value.trim();
   const address = document.getElementById('custAddress').value.trim();
-  const pay = document.querySelector('input[name="payMethod"]:checked').value;
+  const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
 
   if (!name || !phone || !address) {
     alert('Please fill in your name, phone, and complete delivery address.');
@@ -363,34 +375,97 @@
   }
 
   const cart = getCart();
+  if (!cart.length) {
+    alert('Your cart is empty!');
+    return;
+  }
+
   const orderId = 'GC-' + Math.floor(100000 + Math.random() * 900000);
+  const totalAmount = cart.reduce((sum, item) => sum + (Number(item.price || 0) * item.qty), 0);
 
-  // Construct message for Admin
-  let orderMsg = `🛒 *NEW ORDER RECEIVED - ${orderId}*\n\n`;
-  orderMsg += `👤 *Customer:* ${name}\n`;
-  orderMsg += `📞 *Phone:* ${phone}\n`;
-  orderMsg += `📍 *Delivery Address:* ${address}\n`;
-  orderMsg += `💳 *Payment Method:* ${pay}\n\n`;
-  orderMsg += `📦 *Items Ordered:*\n`;
+  // If Cash on Delivery, bypass online payment gateway
+  if (payMethod === 'COD') {
+    finalizeOrderAndNotify({
+      orderId,
+      name,
+      phone,
+      address,
+      payMethod: 'Cash on Delivery (COD)',
+      paymentStatus: 'Pending (Pay on Delivery)',
+      paymentId: 'N/A',
+      cart,
+      totalAmount
+    });
+    return;
+  }
 
-  let total = 0;
-  cart.forEach((item, i) => {
+  // If Online (UPI / Cards / NetBanking), launch Razorpay Checkout modal
+  const options = {
+    key: RAZORPAY_KEY_ID,
+    amount: totalAmount * 100, // Amount in paise (e.g. ₹5,000 = 500000)
+    currency: "INR",
+    name: "Ganga Computers",
+    description: `Order ${orderId}`,
+    image: "https://gangacomputers.in/favicon.ico",
+    prefill: {
+      name: name,
+      contact: phone
+    },
+    theme: {
+      color: "#2563eb"
+    },
+    handler: function (response) {
+      // Payment Successful
+      finalizeOrderAndNotify({
+        orderId,
+        name,
+        phone,
+        address,
+        payMethod: 'Online (UPI/Cards/NetBanking)',
+        paymentStatus: 'PAID',
+        paymentId: response.razorpay_payment_id,
+        cart,
+        totalAmount
+      });
+    },
+    modal: {
+      ondismiss: function () {
+        alert("Payment cancelled. You can try again or select Cash on Delivery.");
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
+function finalizeOrderAndNotify(order) {
+  let msg = `🛒 *NEW ORDER RECEIVED - ${order.orderId}*\n\n`;
+  msg += `👤 *Customer:* ${order.name}\n`;
+  msg += `📞 *Phone:* ${order.phone}\n`;
+  msg += `📍 *Delivery Address:* ${order.address}\n`;
+  msg += `💳 *Payment Method:* ${order.payMethod}\n`;
+  msg += `✅ *Payment Status:* ${order.paymentStatus}\n`;
+  if (order.paymentId !== 'N/A') {
+    msg += `🔖 *Razorpay Ref:* ${order.paymentId}\n`;
+  }
+  msg += `\n📦 *Items Ordered:*\n`;
+
+  order.cart.forEach((item, i) => {
     const sub = Number(item.price || 0) * item.qty;
-    total += sub;
-    orderMsg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
+    msg += `${i + 1}. ${item.title} (Qty: ${item.qty}) - ₹${sub.toLocaleString('en-IN')}\n`;
   });
-  orderMsg += `\n💰 *Total Value: ₹${total.toLocaleString('en-IN')}*`;
-
-  // Choose admin number (e.g., Hyderabad or primary store number)
-  const ADMIN_WHATSAPP = "919599053593";
+  msg += `\n💰 *Total Amount: ₹${order.totalAmount.toLocaleString('en-IN')}*`;
 
   // Clear cart and close modal
   localStorage.removeItem('ganga_cart');
   updateCartBadge();
   closeCheckoutModal();
 
-  // Forward order directly to WhatsApp
-  window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(orderMsg)}`, '_blank');
+  alert(`Thank you, ${order.name}! Order ${order.orderId} recorded (${order.paymentStatus}).`);
+
+  // Forward receipt directly to Admin WhatsApp
+  window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
     function loadProduct() {
