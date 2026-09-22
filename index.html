@@ -92,7 +92,7 @@
       backdrop-filter: blur(14px); 
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12); 
-      padding: 14px 16px;
+      padding: 12px 16px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
     }
     .navbar { 
@@ -103,17 +103,18 @@
       align-items: center; 
       flex-wrap: nowrap;
       gap: 8px; 
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .navbar::-webkit-scrollbar { display: none; }
 
     .brand { 
-      font-size: clamp(1.18rem, 4vw, 1.55rem); 
+      font-size: clamp(1.15rem, 3.8vw, 1.45rem); 
       font-weight: 800; 
       color: #fff; 
       text-decoration: none; 
       white-space: nowrap; 
-      flex-shrink: 1; 
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex-shrink: 0; 
       letter-spacing: -0.4px;
     }
     
@@ -124,23 +125,63 @@
       flex-wrap: nowrap;
       flex-shrink: 0; 
     }
+
+    /* Map Branch Pills & Instagram Button */
+    .map-btn {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: clamp(0.72rem, 2.3vw, 0.8rem);
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .map-btn:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+    .map-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+    .insta-btn {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff !important;
+      border: none;
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-size: clamp(0.72rem, 2.3vw, 0.8rem);
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(220, 39, 67, 0.35);
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+    .insta-btn:hover { opacity: 0.92; }
+    .insta-btn:active { transform: scale(0.97); }
+    .insta-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
     .btn-link { 
       background: rgba(255, 255, 255, 0.08); 
       color: #cbd5e1; 
       border: 1px solid var(--border); 
-      padding: 7px 11px; 
+      padding: 6px 10px; 
       border-radius: 8px; 
-      font-size: clamp(0.75rem, 2.5vw, 0.84rem); 
+      font-size: clamp(0.72rem, 2.3vw, 0.8rem); 
       font-weight: 700; 
       text-decoration: none; 
       display: inline-flex; 
       align-items: center; 
-      gap: 5px; 
+      gap: 4px; 
       cursor: pointer;
       white-space: nowrap;
     }
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
-    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.7rem; font-weight: 800; }
+    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.68rem; font-weight: 800; }
 
     .user-auth-badge {
       display: inline-flex;
@@ -148,9 +189,9 @@
       gap: 4px;
       background: rgba(37, 99, 235, 0.16);
       border: 1px solid rgba(37, 99, 235, 0.45);
-      padding: 6px 9px;
+      padding: 6px 8px;
       border-radius: 8px;
-      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
+      font-size: clamp(0.7rem, 2.2vw, 0.78rem);
       color: #93c5fd;
       font-weight: 700;
       white-space: nowrap;
@@ -162,7 +203,7 @@
       font-size: 0.72rem;
       cursor: pointer;
       margin-left: 2px;
-      padding-left: 5px;
+      padding-left: 4px;
       border-left: 1px solid rgba(255, 255, 255, 0.25);
     }
     .logout-link:hover { text-decoration: underline; color: #fca5a5; }
@@ -283,7 +324,7 @@
     .wa-branch-link.hyderabad:hover { background: #16a34a; color: #fff; }
     .wa-branch-link svg { width: 13px; height: 13px; fill: currentColor; }
 
-    /* Action Buttons Matching Styling */
+    /* Action Buttons */
     .ecom-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
     .btn-ecom {
       min-height: 38px;
@@ -383,14 +424,34 @@
       <a href="index.html" class="brand">Ganga Computers</a>
       
       <div class="header-btns">
+        <!-- Anakapalli Maps Link -->
+        <a href="https://maps.google.com/?q=Ganga+Computers+Anakapalli" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Anakapalli Branch Location on Maps">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          <span>Anakapalli</span>
+        </a>
+
+        <!-- Hyderabad Maps Link -->
+        <a href="https://maps.google.com/?q=Ganga+Computers+Hyderabad" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Hyderabad Branch Location on Maps">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          <span>Hyderabad</span>
+        </a>
+
+        <!-- Instagram Gradient Button -->
+        <a href="https://instagram.com/gangacomputers" target="_blank" rel="noopener noreferrer" class="insta-btn" title="Follow Ganga Computers on Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span>Instagram</span>
+        </a>
+
+        <!-- Customer Login / Status -->
         <div id="userHeaderAuth">
           <button class="btn-link" onclick="openLoginModal()">
             <span>🔑 Login</span>
           </button>
         </div>
 
+        <!-- Cart Button -->
         <button class="btn-link" onclick="toggleCartDrawer()">
-          🛒 Cart <span id="cartCount" class="cart-badge">0</span>
+          🛒 <span id="cartCount" class="cart-badge">0</span>
         </button>
       </div>
     </div>
@@ -546,7 +607,7 @@
     let currentFilter = 'All';
     let generatedOtp = null;
 
-    // --- Customer Authentication Flow ---
+    // Customer Authentication
     function getLoggedInUser() {
       try { return JSON.parse(localStorage.getItem('ganga_user') || 'null'); } catch (e) { return null; }
     }
@@ -649,7 +710,7 @@
       }
     }
 
-    // --- Cart Utilities ---
+    // Cart Utilities
     function getCart() {
       try { return JSON.parse(localStorage.getItem('ganga_cart') || '[]'); } catch (e) { return []; }
     }
