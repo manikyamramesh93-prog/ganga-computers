@@ -51,54 +51,91 @@
     .top-link svg { width: 12px; height: 12px; fill: currentColor; }
     .sep { color: rgba(255, 255, 255, 0.25); }
 
-    header { position: sticky; top: 0; z-index: 40; background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 10px 16px; }
-    .navbar { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .brand { font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
+    /* Single Row Navbar Header */
+    header { 
+      position: sticky; 
+      top: 0; 
+      z-index: 40; 
+      background: rgba(11, 15, 25, 0.96); 
+      backdrop-filter: blur(14px); 
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border); 
+      padding: 8px 12px; 
+    }
+    .navbar { 
+      max-width: 1280px; 
+      margin: 0 auto; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      flex-wrap: nowrap;
+      gap: 6px; 
+    }
+    .brand { 
+      font-size: clamp(0.92rem, 3.2vw, 1.15rem); 
+      font-weight: 800; 
+      color: #fff; 
+      text-decoration: none; 
+      white-space: nowrap; 
+      flex-shrink: 1; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     
-    .header-btns { display: flex; gap: 8px; align-items: center; }
+    .header-btns { 
+      display: flex; 
+      gap: 5px; 
+      align-items: center; 
+      flex-wrap: nowrap;
+      flex-shrink: 0; 
+    }
     .btn-link { 
       background: rgba(255, 255, 255, 0.08); 
       color: #cbd5e1; 
       border: 1px solid var(--border); 
-      padding: 6px 12px; 
-      border-radius: 8px; 
-      font-size: 0.78rem; 
+      padding: 5px 8px; 
+      border-radius: 7px; 
+      font-size: clamp(0.7rem, 2.4vw, 0.78rem); 
       font-weight: 600; 
       text-decoration: none; 
       display: inline-flex; 
       align-items: center; 
-      gap: 6px; 
+      gap: 4px; 
       cursor: pointer;
+      white-space: nowrap;
     }
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
-    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.7rem; font-weight: 800; }
+    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 5px; font-size: 0.68rem; font-weight: 800; }
 
     .user-auth-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: rgba(37, 99, 235, 0.15);
       border: 1px solid rgba(37, 99, 235, 0.4);
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.78rem;
+      padding: 4px 7px;
+      border-radius: 7px;
+      font-size: clamp(0.68rem, 2.3vw, 0.76rem);
       color: #93c5fd;
       font-weight: 600;
+      white-space: nowrap;
     }
     .logout-link {
       color: #f87171;
       text-decoration: none;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       cursor: pointer;
-      margin-left: 4px;
+      margin-left: 2px;
+      padding-left: 3px;
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
     }
     .logout-link:hover { text-decoration: underline; }
 
-    .hero { text-align: center; padding: 28px 16px 16px; }
-    .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin-bottom: 8px; }
-    .hero p { color: var(--text-muted); font-size: clamp(0.8rem, 2vw, 0.95rem); }
+    .hero { text-align: center; padding: 24px 16px 14px; }
+    .hero h1 { font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 800; margin-bottom: 6px; }
+    .hero p { color: var(--text-muted); font-size: clamp(0.78rem, 2vw, 0.92rem); }
 
-    .container { max-width: 1280px; margin: 16px auto 40px; padding: 0 16px; width: 100%; flex: 1; }
+    .container { max-width: 1280px; margin: 12px auto 40px; padding: 0 16px; width: 100%; flex: 1; }
     
     .controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 14px; border-radius: 12px; }
     @media (min-width: 768px) { .controls { flex-direction: row; justify-content: space-between; align-items: center; } }
@@ -115,13 +152,13 @@
     #productSort { background-color: #1e293b; color: #f8fafc; border: 1px solid #334155; font-size: 0.82rem; padding: 6px 12px; border-radius: 6px; outline: none; cursor: pointer; }
 
     /* Flash Banner */
-    .flash-offer-wrapper { display: none; width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: linear-gradient(90deg, #b91c1c, #ea580c, #b91c1c); border-radius: 10px; padding: 9px 0; margin-bottom: 20px; }
+    .flash-offer-wrapper { display: none; width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: linear-gradient(90deg, #b91c1c, #ea580c, #b91c1c); border-radius: 10px; padding: 8px 0; margin-bottom: 16px; }
     .flash-offer-marquee { display: inline-block; padding-left: 100%; animation: marqueeScroll 16s linear infinite; }
-    .flash-offer-blink { display: inline-block; font-size: 0.98rem; font-weight: 800; color: #ffffff; }
+    .flash-offer-blink { display: inline-block; font-size: 0.94rem; font-weight: 800; color: #ffffff; }
     @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
     /* Product Cards */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; }
     .card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; overflow: visible; display: flex; flex-direction: column; }
     .card-img-link { display: block; overflow: hidden; background: #0d1424; position: relative; cursor: pointer; border-radius: 14px 14px 0 0; }
     .card-img { width: 100%; height: 190px; object-fit: cover; transition: transform 0.3s ease; }
@@ -138,10 +175,11 @@
     
     .card-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
     
+    /* Price Row with WhatsApp besides stock */
     .price-row { display: flex; justify-content: space-between; align-items: center; }
     .price { font-size: 1.3rem; font-weight: 800; color: #fff; }
-    
     .price-stock-right { display: inline-flex; align-items: center; gap: 8px; }
+    
     .stock-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
     .in-stock { background: rgba(16, 185, 129, 0.12); color: #34d399; }
     .low-stock { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
@@ -209,6 +247,7 @@
     .wa-branch-link.hyderabad:hover { background: #16a34a; color: #fff; }
     .wa-branch-link svg { width: 13px; height: 13px; fill: currentColor; }
 
+    /* Action Buttons Matching Styling */
     .ecom-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
     .btn-ecom {
       min-height: 38px;
@@ -231,7 +270,7 @@
     .btn-ecom:hover { background: #2563eb; color: #fff; }
     .btn-ecom:active { transform: scale(0.98); }
 
-    /* Modals & Cart Drawer */
+    /* Modals & Slide-in Cart */
     .cart-drawer-overlay, .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 99; opacity: 0; visibility: hidden; transition: all 0.25s ease; }
     .cart-drawer-overlay.active, .modal-overlay.active { opacity: 1; visibility: visible; }
     
@@ -267,11 +306,6 @@
     .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; outline: none; font-size: 0.9rem; }
     .modal-input:focus { border-color: #38bdf8; }
 
-    .otp-input-group {
-      display: flex;
-      gap: 8px;
-      margin: 10px 0 16px;
-    }
     .phone-prefix-wrap {
       display: flex;
       align-items: center;
@@ -313,10 +347,9 @@
       <a href="index.html" class="brand">Ganga Computers</a>
       
       <div class="header-btns">
-        <!-- Customer Login / User Profile Area -->
         <div id="userHeaderAuth">
           <button class="btn-link" onclick="openLoginModal()">
-            <span>🔑 Login / Sign In</span>
+            <span>🔑 Login</span>
           </button>
         </div>
 
@@ -369,7 +402,7 @@
     <div class="grid" id="productGrid"></div>
   </main>
 
-  <!-- Login / Sign In Modal (Indian Mobile + OTP) -->
+  <!-- Login Modal (Indian Mobile + OTP) -->
   <div id="authModalOverlay" class="modal-overlay" onclick="closeLoginModal()"></div>
   <div id="authModal" class="modal-box">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -460,10 +493,10 @@
     </div>
   </div>
 
-<footer>
+  <footer>
     <p><strong>Ganga Computers</strong> • Secure Checkout & Quality Tested</p>
     <p style="margin-top:6px;">&copy; <span id="year"></span> <a href="https://gangacomputers.in">gangacomputers.in</a></p>
-    <p style="margin-top:8px; font-size:0.62rem; letter-spacing:0.5px; opacity:0.35; color:#94a3b8; user-select:none;">
+    <p style="margin-top:8px; font-size:0.62rem; letter-spacing:0.5px; opacity:0.45; color:#94a3b8; user-select:none;">
       Designed by Ramesh.
     </p>
   </footer>
@@ -486,16 +519,19 @@
       const user = getLoggedInUser();
       const container = document.getElementById('userHeaderAuth');
       if (user && user.phone) {
+        const displayName = user.name ? user.name.split(' ')[0] : 'User';
+        const shortPhone = user.phone.length === 10 ? user.phone.slice(-4) : user.phone;
+        
         container.innerHTML = `
           <div class="user-auth-badge">
-            <span>👤 ${user.name ? user.name.split(' ')[0] : 'User'} (+91 ${user.phone})</span>
-            <span class="logout-link" onclick="logoutUser()">Logout</span>
+            <span title="+91 ${user.phone}">👤 ${displayName} (..${shortPhone})</span>
+            <span class="logout-link" onclick="logoutUser()">✕</span>
           </div>
         `;
       } else {
         container.innerHTML = `
           <button class="btn-link" onclick="openLoginModal()">
-            <span>🔑 Login / Sign In</span>
+            <span>🔑 Login</span>
           </button>
         `;
       }
@@ -554,7 +590,6 @@
         };
         localStorage.setItem('ganga_user', JSON.stringify(userData));
 
-        // Save to persistent customer database in localStorage for admin view
         try {
           const allCustomers = JSON.parse(localStorage.getItem('ganga_registered_users') || '[]');
           if (!allCustomers.some(u => u.phone === phone)) {
@@ -565,7 +600,7 @@
 
         syncUserHeader();
         closeLoginModal();
-        alert(`Welcome, ${name}! You are logged in with +91 ${phone}.`);
+        alert(`Welcome, ${name}! Logged in with +91 ${phone}.`);
       } else {
         alert("Invalid OTP code. Please enter the 4-digit code shown on screen.");
       }
@@ -578,7 +613,7 @@
       }
     }
 
-    // --- LocalStorage Cart Utilities ---
+    // --- Cart Utilities ---
     function getCart() {
       try { return JSON.parse(localStorage.getItem('ganga_cart') || '[]'); } catch (e) { return []; }
     }
@@ -656,7 +691,6 @@
       const cart = getCart();
       if (!cart.length) { alert('Your cart is empty!'); return; }
       
-      // Auto fill customer details if logged in
       const user = getLoggedInUser();
       if (user) {
         if (user.name) document.getElementById('custName').value = user.name;
@@ -773,7 +807,6 @@
       });
       msg += `\n💰 *Total Amount: ₹${order.totalAmount.toLocaleString('en-IN')}*`;
 
-      // Log order to localStorage for Admin panel tracking
       try {
         const existingOrders = JSON.parse(localStorage.getItem('ganga_store_orders') || '[]');
         existingOrders.unshift({ ...order, timestamp: new Date().toLocaleString() });
