@@ -28,7 +28,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
     
-    /* Top Strip - Locked Side-by-Side on Mobile */
+    /* Top Strip - Strictly 1 Line Side-by-Side on Mobile */
     .top-strip {
       background: rgba(17, 24, 39, 0.98);
       border-bottom: 1px solid var(--border);
@@ -41,7 +41,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -49,12 +50,12 @@
     .top-strip-inner::-webkit-scrollbar { display: none; }
 
     .top-strip-links { 
-      display: inline-flex; 
+      display: flex; 
       align-items: center; 
       justify-content: center;
       gap: 6px; 
-      flex-wrap: nowrap;
-      white-space: nowrap;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
       width: 100%;
     }
     .top-link { 
@@ -64,8 +65,8 @@
       display: inline-flex; 
       align-items: center; 
       gap: 3px; 
-      font-size: clamp(0.68rem, 2.5vw, 0.78rem);
-      white-space: nowrap;
+      font-size: clamp(0.66rem, 2.7vw, 0.78rem);
+      white-space: nowrap !important;
       flex-shrink: 0;
     }
     .top-link svg { 
