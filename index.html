@@ -51,16 +51,17 @@
     .top-link svg { width: 12px; height: 12px; fill: currentColor; }
     .sep { color: rgba(255, 255, 255, 0.25); }
 
-    /* Single Row Navbar Header */
+    /* Sticky Enlarged Top Navigation Header */
     header { 
       position: sticky; 
       top: 0; 
       z-index: 40; 
-      background: rgba(11, 15, 25, 0.96); 
+      background: rgba(11, 15, 25, 0.98); 
       backdrop-filter: blur(14px); 
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border); 
-      padding: 8px 12px; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12); 
+      padding: 14px 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
     }
     .navbar { 
       max-width: 1280px; 
@@ -69,10 +70,12 @@
       justify-content: space-between; 
       align-items: center; 
       flex-wrap: nowrap;
-      gap: 6px; 
+      gap: 8px; 
     }
+
+    /* Change 2: Enlarged Ganga Computers Brand Header */
     .brand { 
-      font-size: clamp(0.92rem, 3.2vw, 1.15rem); 
+      font-size: clamp(1.18rem, 4vw, 1.55rem); 
       font-weight: 800; 
       color: #fff; 
       text-decoration: none; 
@@ -80,11 +83,12 @@
       flex-shrink: 1; 
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: -0.4px;
     }
     
     .header-btns { 
       display: flex; 
-      gap: 5px; 
+      gap: 6px; 
       align-items: center; 
       flex-wrap: nowrap;
       flex-shrink: 0; 
@@ -93,43 +97,45 @@
       background: rgba(255, 255, 255, 0.08); 
       color: #cbd5e1; 
       border: 1px solid var(--border); 
-      padding: 5px 8px; 
-      border-radius: 7px; 
-      font-size: clamp(0.7rem, 2.4vw, 0.78rem); 
-      font-weight: 600; 
+      padding: 7px 11px; 
+      border-radius: 8px; 
+      font-size: clamp(0.75rem, 2.5vw, 0.84rem); 
+      font-weight: 700; 
       text-decoration: none; 
       display: inline-flex; 
       align-items: center; 
-      gap: 4px; 
+      gap: 5px; 
       cursor: pointer;
       white-space: nowrap;
     }
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
-    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 5px; font-size: 0.68rem; font-weight: 800; }
+    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.7rem; font-weight: 800; }
 
+    /* Change 1: Locked Single-Line Mobile User Badge */
     .user-auth-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: rgba(37, 99, 235, 0.15);
-      border: 1px solid rgba(37, 99, 235, 0.4);
-      padding: 4px 7px;
-      border-radius: 7px;
-      font-size: clamp(0.68rem, 2.3vw, 0.76rem);
+      background: rgba(37, 99, 235, 0.16);
+      border: 1px solid rgba(37, 99, 235, 0.45);
+      padding: 6px 9px;
+      border-radius: 8px;
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
       color: #93c5fd;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .logout-link {
       color: #f87171;
       text-decoration: none;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       cursor: pointer;
       margin-left: 2px;
-      padding-left: 3px;
-      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      padding-left: 5px;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
     }
-    .logout-link:hover { text-decoration: underline; }
+    .logout-link:hover { text-decoration: underline; color: #fca5a5; }
 
     .hero { text-align: center; padding: 24px 16px 14px; }
     .hero h1 { font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 800; margin-bottom: 6px; }
@@ -515,6 +521,7 @@
       try { return JSON.parse(localStorage.getItem('ganga_user') || 'null'); } catch (e) { return null; }
     }
 
+    // Change 1 Implementation: Mobile-Friendly Compact Contact Badge
     function syncUserHeader() {
       const user = getLoggedInUser();
       const container = document.getElementById('userHeaderAuth');
