@@ -20,7 +20,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    .container { max-width: 1280px; margin: 0 auto; }
     
     header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
     h1 { font-size: 1.4rem; font-weight: 800; }
@@ -48,12 +48,45 @@
     .btn-sm { padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    th, td { padding: 10px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
     th { color: var(--text-muted); font-weight: 700; background: rgba(255,255,255,0.02); }
     
     .table-input { background: #0b0f19; border: 1px solid var(--border); color: white; padding: 6px 8px; border-radius: 6px; outline: none; font-size: 0.82rem; width: 100%; }
     .table-input:focus { border-color: #38bdf8; }
-    .table-input-sm { width: 70px; text-align: center; }
+    .table-input-sm { width: 65px; text-align: center; }
+
+    /* Image cell layout */
+    .img-edit-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      width: 110px;
+    }
+    .thumb-wrap {
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .thumb-preview {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: block;
+      transition: transform 0.15s ease;
+    }
+    .thumb-wrap:hover .thumb-preview {
+      transform: scale(1.08);
+      border-color: #38bdf8;
+    }
+    .thumb-edit-tip {
+      font-size: 0.65rem;
+      color: #38bdf8;
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
     .badge { padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; }
     .badge-paid { background: rgba(16, 185, 129, 0.2); color: #34d399; }
@@ -78,7 +111,7 @@
     <header>
       <div>
         <h1>Ganga Computers • Store Admin</h1>
-        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Flash Offers, Customer Orders & Accounts</p>
+        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Images, Flash Offers, Customer Orders & Accounts</p>
       </div>
       <div class="header-links">
         <a href="index.html" class="nav-btn">🛒 View Storefront</a>
@@ -86,37 +119,13 @@
     </header>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('ordersTab', this)">📋 Customer Orders</button>
-      <button class="tab-btn" onclick="showTab('stockTab', this)">📦 Stock & Inventory</button>
+      <button class="tab-btn active" onclick="showTab('stockTab', this)">📦 Stock & Inventory</button>
+      <button class="tab-btn" onclick="showTab('ordersTab', this)">📋 Customer Orders</button>
       <button class="tab-btn" onclick="showTab('usersTab', this)">👥 Registered Mobile Users</button>
     </div>
 
-    <!-- 1. Customer Orders Tab -->
-    <div id="ordersTab" class="panel active">
-      <div class="actions-bar">
-        <h3>Customer Orders Received</h3>
-        <button class="action-btn btn-red" onclick="clearOrders()">Clear All Orders</button>
-      </div>
-      <div style="overflow-x:auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Date / Time</th>
-              <th>Customer</th>
-              <th>Mobile (+91)</th>
-              <th>Total Amount</th>
-              <th>Payment Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="ordersBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 2. Stock & Inventory Management Tab -->
-    <div id="stockTab" class="panel">
+    <!-- 1. Stock & Inventory Management Tab -->
+    <div id="stockTab" class="panel active">
       <!-- Special Offer Banner Control -->
       <div class="banner-control-box">
         <label style="font-size:0.78rem; font-weight:700; color:#38bdf8;">⚡ Top Scrolling Announcement Banner:</label>
@@ -135,17 +144,41 @@
         <table>
           <thead>
             <tr>
-              <th style="width: 50px;">Img</th>
+              <th style="width: 120px;">Image (Preview & URL)</th>
               <th>Product Title</th>
               <th>Brand</th>
               <th>Category</th>
-              <th style="width: 110px;">Price (₹)</th>
-              <th style="width: 80px;">Qty</th>
+              <th style="width: 105px;">Price (₹)</th>
+              <th style="width: 75px;">Qty</th>
               <th>Extra Highlight</th>
               <th style="width: 60px;">Action</th>
             </tr>
           </thead>
           <tbody id="stockTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. Customer Orders Tab -->
+    <div id="ordersTab" class="panel">
+      <div class="actions-bar">
+        <h3>Customer Orders Received</h3>
+        <button class="action-btn btn-red" onclick="clearOrders()">Clear All Orders</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date / Time</th>
+              <th>Customer</th>
+              <th>Mobile (+91)</th>
+              <th>Total Amount</th>
+              <th>Payment Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
         </table>
       </div>
     </div>
@@ -363,17 +396,23 @@
 
       tbody.innerHTML = stockData.items.map((item, idx) => `
         <tr>
+          <!-- Image preview and direct URL editing -->
           <td>
-            <img src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" style="width:36px; height:36px; object-fit:cover; border-radius:6px;" alt="Device" />
+            <div class="img-edit-cell">
+              <div class="thumb-wrap" onclick="promptChangeImage(${idx})" title="Click to paste new Image URL">
+                <img id="thumb-${idx}" src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" class="thumb-preview" alt="Device" />
+              </div>
+              <input type="text" class="table-input" style="font-size:0.72rem; padding:4px 6px;" value="${item.image || ''}" placeholder="Image URL..." onchange="updateItemImage(${idx}, this.value)" title="Paste image URL here" />
+            </div>
           </td>
           <td>
             <input type="text" class="table-input" value="${item.title || ''}" onchange="updateItemField(${idx}, 'title', this.value)" />
           </td>
           <td>
-            <input type="text" class="table-input" style="width:90px;" value="${item.brand || ''}" onchange="updateItemField(${idx}, 'brand', this.value)" />
+            <input type="text" class="table-input" style="width:85px;" value="${item.brand || ''}" onchange="updateItemField(${idx}, 'brand', this.value)" />
           </td>
           <td>
-            <select class="table-input" style="width:90px;" onchange="updateItemField(${idx}, 'category', this.value)">
+            <select class="table-input" style="width:85px;" onchange="updateItemField(${idx}, 'category', this.value)">
               <option value="Tablet" ${item.category === 'Tablet' ? 'selected' : ''}>Tablet</option>
               <option value="Laptop" ${item.category === 'Laptop' ? 'selected' : ''}>Laptop</option>
             </select>
@@ -399,6 +438,26 @@
     function updateItemField(idx, field, value) {
       if (stockData.items[idx]) {
         stockData.items[idx][field] = value;
+      }
+    }
+
+    function updateItemImage(idx, newUrl) {
+      if (stockData.items[idx]) {
+        const trimmed = newUrl.trim();
+        stockData.items[idx].image = trimmed;
+        const imgEl = document.getElementById(`thumb-${idx}`);
+        if (imgEl) {
+          imgEl.src = trimmed || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600';
+        }
+      }
+    }
+
+    function promptChangeImage(idx) {
+      const current = stockData.items[idx]?.image || '';
+      const entered = prompt("Enter or paste new Image URL:", current);
+      if (entered !== null) {
+        updateItemImage(idx, entered);
+        renderStockTable();
       }
     }
 

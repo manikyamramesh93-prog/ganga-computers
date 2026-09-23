@@ -27,63 +27,8 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-    
-    /* Top Strip - Strictly 1 Line Side-by-Side on Mobile */
-    .top-strip {
-      background: rgba(17, 24, 39, 0.98);
-      border-bottom: 1px solid var(--border);
-      padding: 6px 10px;
-      width: 100%;
-    }
-    .top-strip-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: nowrap !important;
-      white-space: nowrap !important;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .top-strip-inner::-webkit-scrollbar { display: none; }
 
-    .top-strip-links { 
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
-      gap: 6px; 
-      flex-wrap: nowrap !important;
-      white-space: nowrap !important;
-      width: 100%;
-    }
-    .top-link { 
-      color: #38bdf8; 
-      text-decoration: none; 
-      font-weight: 700; 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 3px; 
-      font-size: clamp(0.66rem, 2.7vw, 0.78rem);
-      white-space: nowrap !important;
-      flex-shrink: 0;
-    }
-    .top-link svg { 
-      width: 11px; 
-      height: 11px; 
-      fill: currentColor; 
-      flex-shrink: 0; 
-    }
-    .top-strip-links .sep { 
-      color: rgba(255, 255, 255, 0.35); 
-      font-size: 0.72rem;
-      user-select: none;
-      padding: 0 1px;
-      flex-shrink: 0;
-    }
-
-    /* Sticky Enlarged Top Navigation Header */
+    /* Sticky Main Navigation Header */
     header { 
       position: sticky; 
       top: 0; 
@@ -92,66 +37,81 @@
       backdrop-filter: blur(14px); 
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12); 
-      padding: 12px 16px;
+      padding: 12px 18px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
     }
     .navbar { 
-      max-width: 1280px; 
+      max-width: 1440px; 
       margin: 0 auto; 
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
+      gap: 16px;
       flex-wrap: nowrap;
-      gap: 8px; 
-      overflow-x: auto;
-      scrollbar-width: none;
     }
-    .navbar::-webkit-scrollbar { display: none; }
 
+    /* Large Ganga Computers Brand Title */
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
     .brand { 
-      font-size: clamp(1.15rem, 3.8vw, 1.45rem); 
+      font-size: clamp(1.5rem, 4.2vw, 2.3rem); 
       font-weight: 800; 
       color: #fff; 
       text-decoration: none; 
       white-space: nowrap; 
-      flex-shrink: 0; 
-      letter-spacing: -0.4px;
-    }
-    
-    .header-btns { 
-      display: flex; 
-      gap: 6px; 
-      align-items: center; 
-      flex-wrap: nowrap;
-      flex-shrink: 0; 
+      letter-spacing: -0.6px;
+      line-height: 1.1;
     }
 
-    /* Map Branch Pills & Instagram Button */
+    /* 2-Row Action Container */
+    .header-action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .header-row::-webkit-scrollbar { display: none; }
+
+    /* Map & Phone Button Styling */
     .map-btn {
       background: rgba(255, 255, 255, 0.06);
       color: #e2e8f0;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: clamp(0.72rem, 2.3vw, 0.8rem);
+      padding: 5px 9px;
+      border-radius: 7px;
+      font-size: clamp(0.7rem, 2.1vw, 0.78rem);
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       white-space: nowrap;
       transition: all 0.2s ease;
     }
     .map-btn:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
-    .map-btn svg { width: 13px; height: 13px; fill: currentColor; }
+    .map-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
+    /* Instagram Gradient Button */
     .insta-btn {
       background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
       color: #ffffff !important;
       border: none;
-      padding: 6px 11px;
-      border-radius: 8px;
-      font-size: clamp(0.72rem, 2.3vw, 0.8rem);
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: clamp(0.7rem, 2.1vw, 0.78rem);
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
@@ -163,15 +123,16 @@
     }
     .insta-btn:hover { opacity: 0.92; }
     .insta-btn:active { transform: scale(0.97); }
-    .insta-btn svg { width: 13px; height: 13px; fill: currentColor; }
+    .insta-btn svg { width: 12px; height: 12px; fill: currentColor; }
 
+    /* Standard Button Link (Login / Cart) */
     .btn-link { 
       background: rgba(255, 255, 255, 0.08); 
       color: #cbd5e1; 
       border: 1px solid var(--border); 
-      padding: 6px 10px; 
-      border-radius: 8px; 
-      font-size: clamp(0.72rem, 2.3vw, 0.8rem); 
+      padding: 5px 9px; 
+      border-radius: 7px; 
+      font-size: clamp(0.7rem, 2.1vw, 0.78rem); 
       font-weight: 700; 
       text-decoration: none; 
       display: inline-flex; 
@@ -181,17 +142,18 @@
       white-space: nowrap;
     }
     .btn-link:hover { background: rgba(255, 255, 255, 0.15); }
-    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 6px; font-size: 0.68rem; font-weight: 800; }
+    .cart-badge { background: #ef4444; color: white; border-radius: 999px; padding: 1px 5px; font-size: 0.65rem; font-weight: 800; }
 
+    /* User Profile Badge */
     .user-auth-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
       background: rgba(37, 99, 235, 0.16);
       border: 1px solid rgba(37, 99, 235, 0.45);
-      padding: 6px 8px;
-      border-radius: 8px;
-      font-size: clamp(0.7rem, 2.2vw, 0.78rem);
+      padding: 5px 8px;
+      border-radius: 7px;
+      font-size: clamp(0.68rem, 2vw, 0.76rem);
       color: #93c5fd;
       font-weight: 700;
       white-space: nowrap;
@@ -200,13 +162,34 @@
     .logout-link {
       color: #f87171;
       text-decoration: none;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       cursor: pointer;
       margin-left: 2px;
       padding-left: 4px;
       border-left: 1px solid rgba(255, 255, 255, 0.25);
     }
     .logout-link:hover { text-decoration: underline; color: #fca5a5; }
+
+    /* Responsive Handling for Mobile Screens */
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .brand-wrap {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .header-action-stack {
+        width: 100%;
+        align-items: flex-start;
+      }
+      .header-row {
+        width: 100%;
+        overflow-x: auto;
+      }
+    }
 
     .hero { text-align: center; padding: 24px 16px 14px; }
     .hero h1 { font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 800; margin-bottom: 6px; }
@@ -402,57 +385,93 @@
 </head>
 <body>
 
-  <!-- Top Strip Locked Side-by-Side on Mobile -->
-  <div class="top-strip">
-    <div class="top-strip-inner">
-      <div class="top-strip-links">
-        <a href="tel:+919493495539" class="top-link">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>Anakapalli: 94934 95539</span>
-        </a>
-        <span class="sep">•</span>
-        <a href="tel:+919599053593" class="top-link">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>Hyderabad: 95990 53593</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
+  <!-- Navigation Header: Large Ganga Computers aligned to 2 Rows of Actions -->
   <header>
     <div class="navbar">
-      <a href="index.html" class="brand">Ganga Computers</a>
-      
-      <div class="header-btns">
-        <!-- Anakapalli Maps Link -->
-        <a href="https://maps.google.com/?q=Ganga+Computers+Anakapalli" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Anakapalli Branch Location on Maps">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-          <span>Anakapalli</span>
-        </a>
+      <!-- Left: Extra Large Title aligned with both right-side button lines -->
+      <div class="brand-wrap">
+        <a href="index.html" class="brand">Ganga Computers</a>
+      </div>
 
-        <!-- Hyderabad Maps Link -->
-        <a href="https://maps.google.com/?q=Ganga+Computers+Hyderabad" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Hyderabad Branch Location on Maps">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-          <span>Hyderabad</span>
-        </a>
+      <!-- Right: Two-Tier Action Button Rows -->
+      <div class="header-action-stack">
+        
+        <!-- LINE 1: Phone Numbers (with Green Phone App Logo) + Login + Cart -->
+        <div class="header-row">
+          <!-- Anakapalli Phone -->
+          <a href="tel:+919493495539" class="map-btn" title="Call Anakapalli Branch">
+            <svg viewBox="0 0 100 100" style="border-radius: 3px;">
+              <rect width="100" height="100" rx="22" fill="#71b94d" />
+              <path d="M37.5 24c-4.8 0-9.2 3.1-10.7 7.7-4.2 13 5.8 30.5 19.5 44.2 13.7 13.7 31.2 23.7 44.2 19.5 4.6-1.5 7.7-5.9 7.7-10.7v-7.2c0-2.3-1.6-4.3-3.9-4.8l-11.2-2.4c-2.1-.4-4.3.5-5.3 2.5l-3.5 6.9c-9.2-4.8-16.8-12.4-21.6-21.6l6.9-3.5c2-1 2.9-3.2 2.5-5.3L50.3 28c-.5-2.3-2.5-3.9-4.8-3.9h-8z" fill="#ffffff" />
+            </svg>
+            <span>Anakapalli</span>
+          </a>
 
-        <!-- Instagram Gradient Button -->
-        <a href="https://instagram.com/gangacomputers" target="_blank" rel="noopener noreferrer" class="insta-btn" title="Follow Ganga Computers on Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          <span>Instagram</span>
-        </a>
+          <!-- Hyderabad Phone -->
+          <a href="tel:+919599053593" class="map-btn" title="Call Hyderabad Branch">
+            <svg viewBox="0 0 100 100" style="border-radius: 3px;">
+              <rect width="100" height="100" rx="22" fill="#71b94d" />
+              <path d="M37.5 24c-4.8 0-9.2 3.1-10.7 7.7-4.2 13 5.8 30.5 19.5 44.2 13.7 13.7 31.2 23.7 44.2 19.5 4.6-1.5 7.7-5.9 7.7-10.7v-7.2c0-2.3-1.6-4.3-3.9-4.8l-11.2-2.4c-2.1-.4-4.3.5-5.3 2.5l-3.5 6.9c-9.2-4.8-16.8-12.4-21.6-21.6l6.9-3.5c2-1 2.9-3.2 2.5-5.3L50.3 28c-.5-2.3-2.5-3.9-4.8-3.9h-8z" fill="#ffffff" />
+            </svg>
+            <span>Hyderabad</span>
+          </a>
 
-        <!-- Customer Login / Status -->
-        <div id="userHeaderAuth">
-          <button class="btn-link" onclick="openLoginModal()">
-            <span>🔑 Login</span>
+          <!-- User Login / Badge -->
+          <div id="userHeaderAuth">
+            <button class="btn-link" onclick="openLoginModal()">
+              <span>🔑 Login</span>
+            </button>
+          </div>
+
+          <!-- Cart Button -->
+          <button class="btn-link" onclick="toggleCartDrawer()">
+            🛒 <span id="cartCount" class="cart-badge">0</span>
           </button>
         </div>
 
-        <!-- Cart Button -->
-        <button class="btn-link" onclick="toggleCartDrawer()">
-          🛒 <span id="cartCount" class="cart-badge">0</span>
-        </button>
+        <!-- LINE 2: Location Map Buttons (with Google Maps Pinhead Gradient Icon) + Instagram Banner -->
+        <div class="header-row">
+          <!-- Anakapalli Maps -->
+          <a href="https://maps.google.com/?q=Ganga+Computers+Anakapalli" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Anakapalli Branch on Maps">
+            <svg viewBox="0 0 100 115">
+              <defs>
+                <linearGradient id="gmapGradAnk" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ea4335" />
+                  <stop offset="25%" stop-color="#fbbc04" />
+                  <stop offset="50%" stop-color="#34a853" />
+                  <stop offset="75%" stop-color="#4285f4" />
+                  <stop offset="100%" stop-color="#9333ea" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#gmapGradAnk)" fill-rule="evenodd" clip-rule="evenodd" d="M50 0C22.386 0 0 22.386 0 50c0 14.582 6.277 27.697 16.277 36.805L45.412 113.1c1.233 1.139 3.094 1.776 4.588 1.776 1.494 0 3.355-.637 4.588-1.776l29.135-26.295C93.723 77.697 100 64.582 100 50 100 22.386 77.614 0 50 0zm0 27c12.703 0 23 10.297 23 23s-10.297 23-23 23-23-10.297-23-23 10.297-23 23-23z"/>
+            </svg>
+            <span>Anakapalli</span>
+          </a>
+
+          <!-- Hyderabad Maps -->
+          <a href="https://maps.google.com/?q=Ganga+Computers+Hyderabad" target="_blank" rel="noopener noreferrer" class="map-btn" title="View Hyderabad Branch on Maps">
+            <svg viewBox="0 0 100 115">
+              <defs>
+                <linearGradient id="gmapGradHyd" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ea4335" />
+                  <stop offset="25%" stop-color="#fbbc04" />
+                  <stop offset="50%" stop-color="#34a853" />
+                  <stop offset="75%" stop-color="#4285f4" />
+                  <stop offset="100%" stop-color="#9333ea" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#gmapGradHyd)" fill-rule="evenodd" clip-rule="evenodd" d="M50 0C22.386 0 0 22.386 0 50c0 14.582 6.277 27.697 16.277 36.805L45.412 113.1c1.233 1.139 3.094 1.776 4.588 1.776 1.494 0 3.355-.637 4.588-1.776l29.135-26.295C93.723 77.697 100 64.582 100 50 100 22.386 77.614 0 50 0zm0 27c12.703 0 23 10.297 23 23s-10.297 23-23 23-23-10.297-23-23 10.297-23 23-23z"/>
+            </svg>
+            <span>Hyderabad</span>
+          </a>
+
+          <!-- Instagram Gradient Button -->
+          <a href="https://instagram.com/gangacomputers" target="_blank" rel="noopener noreferrer" class="insta-btn" title="Follow Ganga Computers on Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram</span>
+          </a>
+        </div>
+
       </div>
     </div>
   </header>
