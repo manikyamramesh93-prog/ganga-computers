@@ -20,7 +20,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 1280px; margin: 0 auto; }
+    .container { max-width: 1320px; margin: 0 auto; }
     
     header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
     h1 { font-size: 1.4rem; font-weight: 800; }
@@ -48,44 +48,51 @@
     .btn-sm { padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    th, td { padding: 10px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
     th { color: var(--text-muted); font-weight: 700; background: rgba(255,255,255,0.02); }
     
     .table-input { background: #0b0f19; border: 1px solid var(--border); color: white; padding: 6px 8px; border-radius: 6px; outline: none; font-size: 0.82rem; width: 100%; }
     .table-input:focus { border-color: #38bdf8; }
     .table-input-sm { width: 65px; text-align: center; }
 
-    /* Image cell layout */
-    .img-edit-cell {
+    /* Image upload & preview cell */
+    .img-cell-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 5px;
-      width: 110px;
-    }
-    .thumb-wrap {
-      position: relative;
-      cursor: pointer;
-      display: inline-block;
+      width: 120px;
     }
     .thumb-preview {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       object-fit: cover;
       border-radius: 6px;
       border: 1px solid rgba(255,255,255,0.2);
       display: block;
-      transition: transform 0.15s ease;
-    }
-    .thumb-wrap:hover .thumb-preview {
-      transform: scale(1.08);
-      border-color: #38bdf8;
-    }
-    .thumb-edit-tip {
-      font-size: 0.65rem;
-      color: #38bdf8;
-      text-decoration: underline;
       cursor: pointer;
+    }
+    .thumb-preview:hover {
+      border-color: #38bdf8;
+      transform: scale(1.05);
+    }
+    .upload-file-btn {
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px dashed #3b82f6;
+      color: #93c5fd;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .upload-file-btn:hover {
+      background: rgba(37, 99, 235, 0.35);
+      color: #fff;
     }
 
     .badge { padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; }
@@ -98,7 +105,6 @@
     .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 540px; width: 100%; padding: 22px; max-height: 90vh; overflow-y: auto; }
     .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; outline: none; font-size: 0.85rem; }
 
-    /* Order Breakdown Details */
     .order-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 14px; font-size: 0.82rem; }
     .order-info-item span { display: block; color: var(--text-muted); font-size: 0.72rem; }
     .order-items-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
@@ -111,7 +117,7 @@
     <header>
       <div>
         <h1>Ganga Computers • Store Admin</h1>
-        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Images, Flash Offers, Customer Orders & Accounts</p>
+        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Local Device Photos, Customer Orders & Accounts</p>
       </div>
       <div class="header-links">
         <a href="index.html" class="nav-btn">🛒 View Storefront</a>
@@ -126,7 +132,6 @@
 
     <!-- 1. Stock & Inventory Management Tab -->
     <div id="stockTab" class="panel active">
-      <!-- Special Offer Banner Control -->
       <div class="banner-control-box">
         <label style="font-size:0.78rem; font-weight:700; color:#38bdf8;">⚡ Top Scrolling Announcement Banner:</label>
         <input type="text" id="specialOfferInput" placeholder="Leave blank to hide, or enter promotional text (e.g., Festive Offer: Extra ₹500 Off!)" />
@@ -144,7 +149,7 @@
         <table>
           <thead>
             <tr>
-              <th style="width: 120px;">Image (Preview & URL)</th>
+              <th style="width: 130px;">Image (Preview & File)</th>
               <th>Product Title</th>
               <th>Brand</th>
               <th>Category</th>
@@ -274,7 +279,14 @@
 
       <input type="text" id="newExtra" class="modal-input" placeholder="Special Feature (e.g. Apple Pencil Supported, S-Pen)" />
       <input type="text" id="newSpecs" class="modal-input" placeholder="Specs comma-separated (e.g. 32 GB, 9.7 inch, Retina)" />
-      <input type="text" id="newImage" class="modal-input" placeholder="Image URL (Unsplash or direct image URL)" />
+
+      <!-- Local File Upload or Image URL -->
+      <label style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">Product Image (Upload Local File or Paste URL):</label>
+      <input type="file" id="newLocalFile" accept="image/*" class="modal-input" style="padding:6px; cursor:pointer;" onchange="handleNewDeviceFileUpload(this)" />
+      <input type="text" id="newImage" class="modal-input" placeholder="Or paste Image URL (https://...)" />
+      <div id="newImagePreviewWrap" style="display:none; text-align:center; margin-bottom:10px;">
+        <img id="newImagePreview" src="" style="max-height:80px; border-radius:6px; border:1px solid #38bdf8;" />
+      </div>
 
       <div style="display:flex; gap:8px; margin-top:10px;">
         <button class="action-btn" onclick="closeAddModal()" style="flex:1;">Cancel</button>
@@ -365,7 +377,7 @@
       }
     }
 
-    // --- Stock Inventory Management ---
+    // --- Stock Inventory Management with Local Image Upload ---
     function loadStock() {
       fetch('stock.json?t=' + Date.now())
         .then(res => res.json())
@@ -396,13 +408,23 @@
 
       tbody.innerHTML = stockData.items.map((item, idx) => `
         <tr>
-          <!-- Image preview and direct URL editing -->
+          <!-- Image with local file upload and direct URL edit -->
           <td>
-            <div class="img-edit-cell">
-              <div class="thumb-wrap" onclick="promptChangeImage(${idx})" title="Click to paste new Image URL">
-                <img id="thumb-${idx}" src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" class="thumb-preview" alt="Device" />
-              </div>
-              <input type="text" class="table-input" style="font-size:0.72rem; padding:4px 6px;" value="${item.image || ''}" placeholder="Image URL..." onchange="updateItemImage(${idx}, this.value)" title="Paste image URL here" />
+            <div class="img-cell-box">
+              <label for="file-input-${idx}">
+                <img id="thumb-${idx}" src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" class="thumb-preview" title="Click to upload new photo from this device" />
+              </label>
+              
+              <!-- Hidden local file input -->
+              <input type="file" id="file-input-${idx}" accept="image/*" style="display:none;" onchange="handleRowImageUpload(${idx}, this)" />
+              
+              <!-- Trigger button for local storage upload -->
+              <label for="file-input-${idx}" class="upload-file-btn">
+                📁 Upload Local File
+              </label>
+
+              <!-- Editable URL Fallback -->
+              <input type="text" class="table-input" style="font-size:0.68rem; padding:2px 4px;" value="${item.image || ''}" placeholder="Image URL..." onchange="updateItemImage(${idx}, this.value)" title="Or paste image URL" />
             </div>
           </td>
           <td>
@@ -435,6 +457,40 @@
       document.getElementById('stockStatusText').textContent = `Total Devices: ${stockData.items.length}`;
     }
 
+    // Handles local storage image upload for existing products in table
+    function handleRowImageUpload(idx, input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const base64Url = e.target.result;
+          updateItemImage(idx, base64Url);
+          renderStockTable();
+          alert(`Image "${file.name}" loaded successfully from your device!`);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Handles local file upload for the Add Product modal
+    function handleNewDeviceFileUpload(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const base64Url = e.target.result;
+          document.getElementById('newImage').value = base64Url;
+          document.getElementById('newImagePreview').src = base64Url;
+          document.getElementById('newImagePreviewWrap').style.display = 'block';
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
     function updateItemField(idx, field, value) {
       if (stockData.items[idx]) {
         stockData.items[idx][field] = value;
@@ -449,15 +505,6 @@
         if (imgEl) {
           imgEl.src = trimmed || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600';
         }
-      }
-    }
-
-    function promptChangeImage(idx) {
-      const current = stockData.items[idx]?.image || '';
-      const entered = prompt("Enter or paste new Image URL:", current);
-      if (entered !== null) {
-        updateItemImage(idx, entered);
-        renderStockTable();
       }
     }
 
@@ -513,6 +560,8 @@
       document.getElementById('newExtra').value = '';
       document.getElementById('newSpecs').value = '';
       document.getElementById('newImage').value = '';
+      document.getElementById('newLocalFile').value = '';
+      document.getElementById('newImagePreviewWrap').style.display = 'none';
     }
 
     function downloadUpdatedStockJson() {
