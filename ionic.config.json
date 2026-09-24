@@ -1,0 +1,7 @@
+{
+  "name": "ganga-computers",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
