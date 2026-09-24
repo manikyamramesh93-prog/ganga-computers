@@ -1,0 +1,6 @@
+{
+  "appId": "in.gangacomputers.app",
+  "appName": "Ganga Computers",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}
