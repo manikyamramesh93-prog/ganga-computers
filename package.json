@@ -1,0 +1,14 @@
+{
+  "name": "ganga-computers",
+  "version": "1.0.0",
+  "description": "Ganga Computers Mobile App",
+  "scripts": {
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0"
+  }
+}
