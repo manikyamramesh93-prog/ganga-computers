@@ -1,5 +1,5 @@
 {
   "appId": "in.gangacomputers.app",
   "appName": "Ganga Computers",
-  "webDir": ".",
+  "webDir": "www"
 }
