@@ -20,7 +20,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 1320px; margin: 0 auto; }
+    .container { max-width: 1200px; margin: 0 auto; }
     
     header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
     h1 { font-size: 1.4rem; font-weight: 800; }
@@ -48,52 +48,12 @@
     .btn-sm { padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
     th { color: var(--text-muted); font-weight: 700; background: rgba(255,255,255,0.02); }
     
     .table-input { background: #0b0f19; border: 1px solid var(--border); color: white; padding: 6px 8px; border-radius: 6px; outline: none; font-size: 0.82rem; width: 100%; }
     .table-input:focus { border-color: #38bdf8; }
-    .table-input-sm { width: 65px; text-align: center; }
-
-    /* Image upload & preview cell */
-    .img-cell-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      width: 120px;
-    }
-    .thumb-preview {
-      width: 46px;
-      height: 46px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.2);
-      display: block;
-      cursor: pointer;
-    }
-    .thumb-preview:hover {
-      border-color: #38bdf8;
-      transform: scale(1.05);
-    }
-    .upload-file-btn {
-      background: rgba(37, 99, 235, 0.2);
-      border: 1px dashed #3b82f6;
-      color: #93c5fd;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 3px 6px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-align: center;
-      width: 100%;
-      white-space: nowrap;
-      transition: background 0.15s ease;
-    }
-    .upload-file-btn:hover {
-      background: rgba(37, 99, 235, 0.35);
-      color: #fff;
-    }
+    .table-input-sm { width: 70px; text-align: center; }
 
     .badge { padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.72rem; }
     .badge-paid { background: rgba(16, 185, 129, 0.2); color: #34d399; }
@@ -105,6 +65,7 @@
     .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 540px; width: 100%; padding: 22px; max-height: 90vh; overflow-y: auto; }
     .modal-input { width: 100%; background: #0b0f19; border: 1px solid var(--border); color: white; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; outline: none; font-size: 0.85rem; }
 
+    /* Order Breakdown Details */
     .order-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 14px; font-size: 0.82rem; }
     .order-info-item span { display: block; color: var(--text-muted); font-size: 0.72rem; }
     .order-items-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
@@ -117,7 +78,7 @@
     <header>
       <div>
         <h1>Ganga Computers • Store Admin</h1>
-        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Local Device Photos, Customer Orders & Accounts</p>
+        <p style="color:var(--text-muted); font-size:0.8rem; margin-top:3px;">Manage Inventory, Flash Offers, Customer Orders & Accounts</p>
       </div>
       <div class="header-links">
         <a href="index.html" class="nav-btn">🛒 View Storefront</a>
@@ -125,47 +86,13 @@
     </header>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('stockTab', this)">📦 Stock & Inventory</button>
-      <button class="tab-btn" onclick="showTab('ordersTab', this)">📋 Customer Orders</button>
+      <button class="tab-btn active" onclick="showTab('ordersTab', this)">📋 Customer Orders</button>
+      <button class="tab-btn" onclick="showTab('stockTab', this)">📦 Stock & Inventory</button>
       <button class="tab-btn" onclick="showTab('usersTab', this)">👥 Registered Mobile Users</button>
     </div>
 
-    <!-- 1. Stock & Inventory Management Tab -->
-    <div id="stockTab" class="panel active">
-      <div class="banner-control-box">
-        <label style="font-size:0.78rem; font-weight:700; color:#38bdf8;">⚡ Top Scrolling Announcement Banner:</label>
-        <input type="text" id="specialOfferInput" placeholder="Leave blank to hide, or enter promotional text (e.g., Festive Offer: Extra ₹500 Off!)" />
-      </div>
-
-      <div class="actions-bar">
-        <div style="display:flex; gap:8px;">
-          <button class="action-btn" onclick="openAddModal()">➕ Add New Device</button>
-          <button class="action-btn btn-green" onclick="downloadUpdatedStockJson()">💾 Download Updated stock.json</button>
-        </div>
-        <span id="stockStatusText" style="font-size:0.78rem; color:#94a3b8;"></span>
-      </div>
-
-      <div style="overflow-x:auto;">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 130px;">Image (Preview & File)</th>
-              <th>Product Title</th>
-              <th>Brand</th>
-              <th>Category</th>
-              <th style="width: 105px;">Price (₹)</th>
-              <th style="width: 75px;">Qty</th>
-              <th>Extra Highlight</th>
-              <th style="width: 60px;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="stockTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 2. Customer Orders Tab -->
-    <div id="ordersTab" class="panel">
+    <!-- 1. Customer Orders Tab -->
+    <div id="ordersTab" class="panel active">
       <div class="actions-bar">
         <h3>Customer Orders Received</h3>
         <button class="action-btn btn-red" onclick="clearOrders()">Clear All Orders</button>
@@ -184,6 +111,41 @@
             </tr>
           </thead>
           <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. Stock & Inventory Management Tab -->
+    <div id="stockTab" class="panel">
+      <!-- Special Offer Banner Control -->
+      <div class="banner-control-box">
+        <label style="font-size:0.78rem; font-weight:700; color:#38bdf8;">⚡ Top Scrolling Announcement Banner:</label>
+        <input type="text" id="specialOfferInput" placeholder="Leave blank to hide, or enter promotional text (e.g., Festive Offer: Extra ₹500 Off!)" />
+      </div>
+
+      <div class="actions-bar">
+        <div style="display:flex; gap:8px;">
+          <button class="action-btn" onclick="openAddModal()">➕ Add New Device</button>
+          <button class="action-btn btn-green" onclick="downloadUpdatedStockJson()">💾 Download Updated stock.json</button>
+        </div>
+        <span id="stockStatusText" style="font-size:0.78rem; color:#94a3b8;"></span>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">Img</th>
+              <th>Product Title</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th style="width: 110px;">Price (₹)</th>
+              <th style="width: 80px;">Qty</th>
+              <th>Extra Highlight</th>
+              <th style="width: 60px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -279,14 +241,7 @@
 
       <input type="text" id="newExtra" class="modal-input" placeholder="Special Feature (e.g. Apple Pencil Supported, S-Pen)" />
       <input type="text" id="newSpecs" class="modal-input" placeholder="Specs comma-separated (e.g. 32 GB, 9.7 inch, Retina)" />
-
-      <!-- Local File Upload or Image URL -->
-      <label style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">Product Image (Upload Local File or Paste URL):</label>
-      <input type="file" id="newLocalFile" accept="image/*" class="modal-input" style="padding:6px; cursor:pointer;" onchange="handleNewDeviceFileUpload(this)" />
-      <input type="text" id="newImage" class="modal-input" placeholder="Or paste Image URL (https://...)" />
-      <div id="newImagePreviewWrap" style="display:none; text-align:center; margin-bottom:10px;">
-        <img id="newImagePreview" src="" style="max-height:80px; border-radius:6px; border:1px solid #38bdf8;" />
-      </div>
+      <input type="text" id="newImage" class="modal-input" placeholder="Image URL (Unsplash or direct image URL)" />
 
       <div style="display:flex; gap:8px; margin-top:10px;">
         <button class="action-btn" onclick="closeAddModal()" style="flex:1;">Cancel</button>
@@ -377,7 +332,7 @@
       }
     }
 
-    // --- Stock Inventory Management with Local Image Upload ---
+    // --- Stock Inventory Management ---
     function loadStock() {
       fetch('stock.json?t=' + Date.now())
         .then(res => res.json())
@@ -408,33 +363,17 @@
 
       tbody.innerHTML = stockData.items.map((item, idx) => `
         <tr>
-          <!-- Image with local file upload and direct URL edit -->
           <td>
-            <div class="img-cell-box">
-              <label for="file-input-${idx}">
-                <img id="thumb-${idx}" src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" class="thumb-preview" title="Click to upload new photo from this device" />
-              </label>
-              
-              <!-- Hidden local file input -->
-              <input type="file" id="file-input-${idx}" accept="image/*" style="display:none;" onchange="handleRowImageUpload(${idx}, this)" />
-              
-              <!-- Trigger button for local storage upload -->
-              <label for="file-input-${idx}" class="upload-file-btn">
-                📁 Upload Local File
-              </label>
-
-              <!-- Editable URL Fallback -->
-              <input type="text" class="table-input" style="font-size:0.68rem; padding:2px 4px;" value="${item.image || ''}" placeholder="Image URL..." onchange="updateItemImage(${idx}, this.value)" title="Or paste image URL" />
-            </div>
+            <img src="${item.image || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600'}" style="width:36px; height:36px; object-fit:cover; border-radius:6px;" alt="Device" />
           </td>
           <td>
             <input type="text" class="table-input" value="${item.title || ''}" onchange="updateItemField(${idx}, 'title', this.value)" />
           </td>
           <td>
-            <input type="text" class="table-input" style="width:85px;" value="${item.brand || ''}" onchange="updateItemField(${idx}, 'brand', this.value)" />
+            <input type="text" class="table-input" style="width:90px;" value="${item.brand || ''}" onchange="updateItemField(${idx}, 'brand', this.value)" />
           </td>
           <td>
-            <select class="table-input" style="width:85px;" onchange="updateItemField(${idx}, 'category', this.value)">
+            <select class="table-input" style="width:90px;" onchange="updateItemField(${idx}, 'category', this.value)">
               <option value="Tablet" ${item.category === 'Tablet' ? 'selected' : ''}>Tablet</option>
               <option value="Laptop" ${item.category === 'Laptop' ? 'selected' : ''}>Laptop</option>
             </select>
@@ -457,54 +396,9 @@
       document.getElementById('stockStatusText').textContent = `Total Devices: ${stockData.items.length}`;
     }
 
-    // Handles local storage image upload for existing products in table
-    function handleRowImageUpload(idx, input) {
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-          const base64Url = e.target.result;
-          updateItemImage(idx, base64Url);
-          renderStockTable();
-          alert(`Image "${file.name}" loaded successfully from your device!`);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // Handles local file upload for the Add Product modal
-    function handleNewDeviceFileUpload(input) {
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-          const base64Url = e.target.result;
-          document.getElementById('newImage').value = base64Url;
-          document.getElementById('newImagePreview').src = base64Url;
-          document.getElementById('newImagePreviewWrap').style.display = 'block';
-        };
-
-        reader.readAsDataURL(file);
-      }
-    }
-
     function updateItemField(idx, field, value) {
       if (stockData.items[idx]) {
         stockData.items[idx][field] = value;
-      }
-    }
-
-    function updateItemImage(idx, newUrl) {
-      if (stockData.items[idx]) {
-        const trimmed = newUrl.trim();
-        stockData.items[idx].image = trimmed;
-        const imgEl = document.getElementById(`thumb-${idx}`);
-        if (imgEl) {
-          imgEl.src = trimmed || 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600';
-        }
       }
     }
 
@@ -560,8 +454,6 @@
       document.getElementById('newExtra').value = '';
       document.getElementById('newSpecs').value = '';
       document.getElementById('newImage').value = '';
-      document.getElementById('newLocalFile').value = '';
-      document.getElementById('newImagePreviewWrap').style.display = 'none';
     }
 
     function downloadUpdatedStockJson() {
